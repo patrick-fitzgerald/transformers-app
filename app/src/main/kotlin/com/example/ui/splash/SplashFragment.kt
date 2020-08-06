@@ -27,14 +27,16 @@ class SplashFragment : BaseFragment() {
         viewBinding = FragmentSplashBinding.inflate(inflater, container, false)
         viewBinding.viewModel = splashViewModel
         viewBinding.lifecycleOwner = this
-
-        splashViewModel.navigateUser()
         return viewBinding.root
     }
 
     override fun onStart() {
         super.onStart()
+        subscribeToContextEvents()
+        splashViewModel.navigateUser()
+    }
 
+    private fun subscribeToContextEvents(){
         // navigation events
         splashViewModel.contextEventBus.subscribe { contextEvent ->
             context?.let {
@@ -44,10 +46,10 @@ class SplashFragment : BaseFragment() {
                 }
             }
         }.addTo(compositeDisposable)
+
     }
 
     private fun navigateToHomeFragment() {
-        Timber.d("navigateToHomeFragment")
         findNavController().navigate(
             R.id.action_splashFragment_to_homeFragment,
             null,

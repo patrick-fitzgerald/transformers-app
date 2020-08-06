@@ -73,7 +73,7 @@ class TransformersAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TransformerResponse) {
-            binding.repoName.text = item.name
+            binding.transformerName.text = item.name
             binding.executePendingBindings()
         }
 

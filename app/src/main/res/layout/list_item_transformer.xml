@@ -17,7 +17,7 @@
         android:layout_marginHorizontal="@dimen/medium_padding">
 
         <TextView
-            android:id="@+id/repo_name"
+            android:id="@+id/transformer_name"
             style="@style/textDefault"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

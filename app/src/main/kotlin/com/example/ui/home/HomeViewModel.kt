@@ -2,7 +2,9 @@ package com.example.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.api.Resource
 import com.example.api.Status
+import com.example.data.response.TransformerListResponse
 import com.example.data.response.TransformerResponse
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel
@@ -33,20 +35,21 @@ class HomeViewModel(
     fun getTransformersRequest() {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
-            val response = transformersRepository.getTransformers()
+            val response: Resource<TransformerListResponse> =
+                transformersRepository.getTransformers()
             isLoading.postValue(false)
             viewModelScope.launch(Dispatchers.Main) {
                 when (response.status) {
                     Status.SUCCESS -> {
                         if (response.data != null) {
                             Timber.d("getTransformersRequest response: ${response.data}")
-                            transformers.value = response.data
+                            transformers.value = response.data.transformers
                         } else {
-                            Timber.e("getTransformersRequest ERROR: ${response.data}")
+                            showError("getTransformersRequest ERROR: ${response.data}")
                         }
                     }
                     Status.ERROR -> {
-                        Timber.e("getTransformersRequest ERROR: ${response.message}")
+                        showError("getTransformersRequest ERROR: ${response.message}")
                     }
                 }
             }

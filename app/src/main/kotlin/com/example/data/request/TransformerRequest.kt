@@ -1,6 +1,6 @@
-package com.example.data.response
+package com.example.data.request
 
-data class TransformerResponse(
+data class TransformerRequest(
 
     val id: String? = null,
     val name: String = "",
@@ -12,7 +12,5 @@ data class TransformerResponse(
     val rank: Int,
     val courage: Int,
     val firepower: Int,
-    val skill: Int,
-    val team_icon: String = ""
-
+    val skill: Int
 )
