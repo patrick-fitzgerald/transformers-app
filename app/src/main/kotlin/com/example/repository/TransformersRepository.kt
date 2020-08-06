@@ -1,7 +1,7 @@
 package com.example.repository
 
-import com.example.api.TransformersApi
 import com.example.api.Resource
+import com.example.api.TransformersApi
 import com.example.data.response.TransformerResponse
 import timber.log.Timber
 

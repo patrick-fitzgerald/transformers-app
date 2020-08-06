@@ -1,21 +1,36 @@
 package com.example.ui.splash
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.api.Status
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel
+import com.example.util.PreferenceHelper
+import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SplashViewModel(
-    private val transformersRepository: TransformersRepository
-) : BaseViewModel(){
+    private val transformersRepository: TransformersRepository,
+    private val prefs: PreferenceHelper
+) : BaseViewModel() {
 
-    val jwtToken = MutableLiveData<String>()
+    enum class ContextEvent {
+        NAVIGATE_TO_HOME_FRAGMENT,
+    }
 
-    fun getAllSparkRequest() {
+    val contextEventBus: PublishSubject<ContextEvent> = PublishSubject.create()
+
+    fun navigateUser() {
+        // User auth logic
+        if (prefs.jwtToken.isNullOrEmpty()) {
+            getAllSparkRequest()
+        } else {
+            contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
+        }
+    }
+
+    private fun getAllSparkRequest() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = transformersRepository.getAllSpark()
             viewModelScope.launch(Dispatchers.Main) {
@@ -23,19 +38,17 @@ class SplashViewModel(
                     Status.SUCCESS -> {
                         if (response.data != null) {
                             Timber.d("getAllSparkRequest response: ${response.data}")
-                            jwtToken.value = response.data
+                            prefs.jwtToken = response.data
+                            contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
                         } else {
-                            Timber.e("getAllSparkRequest ERROR: ${response.data}")
+                            showError("getAllSparkRequest ERROR: ${response.data}")
                         }
                     }
                     Status.ERROR -> {
-                        Timber.e("getAllSparkRequest ERROR: ${response.message}")
+                        showError("getAllSparkRequest ERROR: ${response.message}")
                     }
                 }
             }
         }
     }
-
-
-
 }

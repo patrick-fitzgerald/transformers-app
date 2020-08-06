@@ -10,6 +10,7 @@ import com.example.R
 import com.example.databinding.FragmentSplashBinding
 import com.example.ui.base.BaseFragment
 import com.example.util.autoCleared
+import io.reactivex.rxkotlin.addTo
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -27,14 +28,22 @@ class SplashFragment : BaseFragment() {
         viewBinding.viewModel = splashViewModel
         viewBinding.lifecycleOwner = this
 
-        navigateUser()
+        splashViewModel.navigateUser()
         return viewBinding.root
     }
 
-    private fun navigateUser() {
+    override fun onStart() {
+        super.onStart()
 
-        // Add auth logic here
-        navigateToHomeFragment()
+        // navigation events
+        splashViewModel.contextEventBus.subscribe { contextEvent ->
+            context?.let {
+                when (contextEvent) {
+                    SplashViewModel.ContextEvent.NAVIGATE_TO_HOME_FRAGMENT -> navigateToHomeFragment()
+                    else -> Unit
+                }
+            }
+        }.addTo(compositeDisposable)
     }
 
     private fun navigateToHomeFragment() {
