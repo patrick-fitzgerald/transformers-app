@@ -64,13 +64,9 @@ class TransformerViewModel(
             viewModelScope.launch(Dispatchers.Main) {
                 when (response.status) {
                     Status.SUCCESS -> {
-                        if (response.data != null) {
-                            Timber.d("createTransformerRequest response: ${response.data}")
-                            contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
-                            transformerName.value = ""
-                        } else {
-                            showError("createTransformerRequest ERROR: ${response.data}")
-                        }
+                        Timber.d("createTransformerRequest response: ${response.data}")
+                        contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
+                        transformerName.value = ""
                     }
                     Status.ERROR -> {
                         showError("createTransformerRequest ERROR: ${response.message}")

@@ -1,5 +1,6 @@
 package com.example.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.data.response.Transformer
 
@@ -7,13 +8,16 @@ import com.example.data.response.Transformer
 interface TransformerDao {
 
     @Query("SELECT * FROM transformers")
-    suspend fun getTransformers(): List<Transformer>
+    fun findTransformers(): LiveData<List<Transformer>>
 
     @Query("SELECT * from transformers WHERE id= :id LIMIT 1")
     suspend fun findTransformer(id: String): Transformer
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransformer(transformer: Transformer)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTransformers(transformers: List<Transformer>)
 
     @Update
     suspend fun updateTransformer(transformer: Transformer)

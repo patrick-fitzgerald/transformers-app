@@ -36,13 +36,10 @@ class SplashViewModel(
             viewModelScope.launch(Dispatchers.Main) {
                 when (response.status) {
                     Status.SUCCESS -> {
-                        if (response.data != null) {
                             Timber.d("getAllSparkRequest response: ${response.data}")
                             prefs.jwtToken = response.data
                             contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
-                        } else {
-                            showError("getAllSparkRequest ERROR: ${response.data}")
-                        }
+
                     }
                     Status.ERROR -> {
                         showError("getAllSparkRequest ERROR: ${response.message}")

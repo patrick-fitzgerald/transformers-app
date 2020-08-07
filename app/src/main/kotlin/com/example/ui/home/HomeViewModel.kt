@@ -19,7 +19,7 @@ class HomeViewModel(
 ) : BaseViewModel() {
 
     val isLoading = MutableLiveData<Boolean>().default(true)
-    val transformers = MutableLiveData<List<Transformer>>()
+    val transformers = transformersRepository.getTransformersFromDb()
 
     enum class ContextEvent {
         NAVIGATE_TO_TRANSFORMER_FRAGMENT_AUTOBOT,
@@ -40,17 +40,12 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             val response: Resource<TransformerListResponse> =
-                transformersRepository.getTransformers()
+                transformersRepository.getTransformersFromApi()
             isLoading.postValue(false)
             viewModelScope.launch(Dispatchers.Main) {
                 when (response.status) {
                     Status.SUCCESS -> {
-                        if (response.data != null) {
-                            Timber.d("getTransformersRequest response: ${response.data}")
-                            transformers.value = response.data.transformers
-                        } else {
-                            showError("getTransformersRequest ERROR: ${response.data}")
-                        }
+                        Timber.d("getTransformersRequest response: ${response.data}")
                     }
                     Status.ERROR -> {
                         showError("getTransformersRequest ERROR: ${response.message}")

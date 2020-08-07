@@ -56,7 +56,7 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single { TransformersRepository(get()) }
+    single { TransformersRepository(get(), get()) }
 }
 
 val prefsModule = module {
@@ -66,10 +66,9 @@ val prefsModule = module {
 val dbModule = module {
 
     single {
-        Room.databaseBuilder(get(), TransformersDatabase::class.java, "transformers.db")
+        Room.databaseBuilder(get(), TransformersDatabase::class.java, "transformers_db")
             .build()
     }
-    single { get<TransformersDatabase>().transformerDao() }
 }
 
 
