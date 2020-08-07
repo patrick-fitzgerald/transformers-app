@@ -19,8 +19,8 @@ class HomeFragment : BaseFragment() {
     private var viewBinding by autoCleared<FragmentHomeBinding>()
     private val homeViewModel: HomeViewModel by viewModel()
 
-    private lateinit var viewLayoutManager: RecyclerView.LayoutManager
-    private lateinit var viewAdapter: TransformersAdapter
+    private lateinit var autoBotViewAdapter: TransformersAdapter
+    private lateinit var decepticonViewAdapter: TransformersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,18 +31,23 @@ class HomeFragment : BaseFragment() {
         viewBinding.viewModel = homeViewModel
         viewBinding.lifecycleOwner = this
 
-        viewLayoutManager = LinearLayoutManager(context)
-        viewAdapter = TransformersAdapter()
+        autoBotViewAdapter = TransformersAdapter(TransformerType.AUTOBOT)
+        decepticonViewAdapter = TransformersAdapter(TransformerType.DECEPTICON)
 
-        viewBinding.transformersList.apply {
-            setHasFixedSize(true)
-            layoutManager = viewLayoutManager
-            adapter = viewAdapter
-        }
+        initListViews(viewBinding.autobotList, autoBotViewAdapter)
+        initListViews(viewBinding.decepticonList, decepticonViewAdapter)
 
         homeViewModel.getTransformersRequest()
 
         return viewBinding.root
+    }
+
+    private fun initListViews(recyclerView: RecyclerView, transformersAdapter: TransformersAdapter) {
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = transformersAdapter
+        }
     }
 
     override fun onStart() {
@@ -52,7 +57,8 @@ class HomeFragment : BaseFragment() {
             viewLifecycleOwner,
             Observer { transformers ->
                 transformers?.let {
-                    viewAdapter.addHeaderAndSubmitList(it)
+                    autoBotViewAdapter.addHeaderAndSubmitList(it)
+                    decepticonViewAdapter.addHeaderAndSubmitList(it)
                 }
             }
         )

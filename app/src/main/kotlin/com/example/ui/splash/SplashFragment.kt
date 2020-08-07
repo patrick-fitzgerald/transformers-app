@@ -12,7 +12,6 @@ import com.example.ui.base.BaseFragment
 import com.example.util.autoCleared
 import io.reactivex.rxkotlin.addTo
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class SplashFragment : BaseFragment() {
 
@@ -36,7 +35,7 @@ class SplashFragment : BaseFragment() {
         splashViewModel.navigateUser()
     }
 
-    private fun subscribeToContextEvents(){
+    private fun subscribeToContextEvents() {
         // navigation events
         splashViewModel.contextEventBus.subscribe { contextEvent ->
             context?.let {
@@ -46,7 +45,6 @@ class SplashFragment : BaseFragment() {
                 }
             }
         }.addTo(compositeDisposable)
-
     }
 
     private fun navigateToHomeFragment() {

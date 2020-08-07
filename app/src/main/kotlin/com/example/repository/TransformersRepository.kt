@@ -3,7 +3,6 @@ package com.example.repository
 import com.example.api.Resource
 import com.example.api.TransformersApi
 import com.example.data.response.TransformerListResponse
-import com.example.data.response.TransformerResponse
 import timber.log.Timber
 
 class TransformersRepository constructor(

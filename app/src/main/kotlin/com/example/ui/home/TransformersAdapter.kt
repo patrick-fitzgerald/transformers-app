@@ -2,13 +2,12 @@ package com.example.ui.home
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.R
 import com.example.data.response.TransformerResponse
+import com.example.databinding.ListHeaderBinding
 import com.example.databinding.ListItemTransformerBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +17,12 @@ import kotlinx.coroutines.withContext
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_ITEM = 1
 
-class TransformersAdapter :
+enum class TransformerType {
+    AUTOBOT,
+    DECEPTICON
+}
+
+class TransformersAdapter(private val transformerType: TransformerType) :
     ListAdapter<DataItem, RecyclerView.ViewHolder>(TransformersDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -26,8 +30,12 @@ class TransformersAdapter :
     fun addHeaderAndSubmitList(list: List<TransformerResponse>?) {
         adapterScope.launch {
             val items = when (list) {
-                null -> listOf(DataItem.Header)
-                else -> listOf(DataItem.Header) + list.map { DataItem.TransformerItem(it) }
+                null -> listOf(DataItem.Header(transformerType))
+                else -> listOf(DataItem.Header(transformerType)) + list.map {
+                    DataItem.TransformerItem(
+                        it
+                    )
+                }
             }
             withContext(Dispatchers.Main) {
                 submitList(items)
@@ -40,6 +48,11 @@ class TransformersAdapter :
             is ItemViewHolder -> {
                 val transformerItem = getItem(position) as DataItem.TransformerItem
                 holder.bind(transformerItem.transformerResponse)
+            }
+
+            is HeaderViewHolder -> {
+                val headerItem = getItem(0) as DataItem.Header
+                holder.bind(headerItem.transformerType)
             }
         }
     }
@@ -59,12 +72,19 @@ class TransformersAdapter :
         }
     }
 
-    class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class HeaderViewHolder private constructor(private val binding: ListHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(transformerType: TransformerType) {
+            binding.addTransformerBtn.text = "New ${transformerType.name.toLowerCase().capitalize()}"
+            binding.executePendingBindings()
+        }
+
         companion object {
             fun from(parent: ViewGroup): HeaderViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.list_header, parent, false)
-                return HeaderViewHolder(view)
+                val binding = ListHeaderBinding.inflate(layoutInflater, parent, false)
+                return HeaderViewHolder(binding)
             }
         }
     }
@@ -103,7 +123,7 @@ sealed class DataItem {
         override val id = transformerResponse.id.toString()
     }
 
-    object Header : DataItem() {
+    data class Header(val transformerType: TransformerType) : DataItem() {
         override val id = "Header"
     }
 
