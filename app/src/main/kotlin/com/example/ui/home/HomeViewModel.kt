@@ -22,14 +22,17 @@ class HomeViewModel(
     val transformers = MutableLiveData<List<TransformerResponse>>()
 
     enum class ContextEvent {
-        GET_REPOS_BUTTON_CLICKED,
+        NAVIGATE_TO_TRANSFORMER_FRAGMENT,
     }
 
     val contextEventBus: PublishSubject<ContextEvent> = PublishSubject.create()
 
-    fun onGetReposBtnClick() {
-        contextEventBus.onNext(ContextEvent.GET_REPOS_BUTTON_CLICKED)
-        getTransformersRequest()
+    fun onAddAutobotBtnClick() {
+        contextEventBus.onNext(ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT)
+    }
+
+    fun onAddDecepticonBtnClick() {
+        contextEventBus.onNext(ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT)
     }
 
     fun getTransformersRequest() {

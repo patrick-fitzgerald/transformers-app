@@ -1,12 +1,10 @@
 package com.example.di
 
 import android.app.Application
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.BuildConfig
-import com.example.R
 import com.example.api.JwtInterceptor
 import com.example.api.TransformersApi
 import com.example.repository.TransformersRepository
@@ -40,7 +38,7 @@ val networkModule = module {
 
         val jwtInterceptor = JwtInterceptor()
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient().newBuilder()
             .addNetworkInterceptor(loggingInterceptor)
             .addInterceptor(jwtInterceptor)
@@ -73,7 +71,7 @@ val glideModule = module {
 //        circularProgressDrawable.centerRadius = 30f
 //        circularProgressDrawable.start()
 
-        val requestOptions =  RequestOptions()
+        val requestOptions = RequestOptions()
 //            .placeholder(circularProgressDrawable)
 
         return Glide.with(application)
@@ -81,6 +79,5 @@ val glideModule = module {
     }
     single { provideRequestManager(androidApplication()) }
 }
-
 
 val appModules = listOf(viewModelModule, networkModule, repositoryModule, prefsModule, glideModule)

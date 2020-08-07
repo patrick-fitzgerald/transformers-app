@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 class TransformersAdapter :
     ListAdapter<DataItem, RecyclerView.ViewHolder>(TransformersDiffCallback()) {
 

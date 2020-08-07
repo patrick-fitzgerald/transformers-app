@@ -18,7 +18,7 @@ data class TransformerResponse(
     @SerializedName("team_icon")
     val teamIcon: String = ""
 
-){
+) {
 
     /**
      * The overall rating of a Transformer is the following formula:

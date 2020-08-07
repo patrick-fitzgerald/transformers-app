@@ -13,6 +13,6 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
 
     fun showError(error: String) {
         Timber.e(error)
-        Toast.makeText(context, error, Toast.LENGTH_LONG)
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 }
