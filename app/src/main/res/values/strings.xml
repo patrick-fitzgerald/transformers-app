@@ -5,4 +5,19 @@
     <string name="new_autobot">New Autobot</string>
     <string name="new_decepticon">New Decepticon</string>
     <string name="battle">Battle</string>
+    <string name="transformer_name">Transformer Name</string>
+    <string name="save">Save</string>
+
+
+    <!-- Transformer definitions-->
+    <string name="strength">Strength</string>
+    <string name="intelligence">Intelligence</string>
+    <string name="speed">Speed</string>
+    <string name="endurance">Endurance</string>
+    <string name="rank">Rank</string>
+    <string name="courage">Courage</string>
+    <string name="firepower">Firepower</string>
+    <string name="skill">Skill</string>
+
+
 </resources>

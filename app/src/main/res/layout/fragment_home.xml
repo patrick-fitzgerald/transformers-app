@@ -14,9 +14,9 @@
             android:id="@+id/transformers_banner"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginBottom="@dimen/tiny_padding"
             android:background="@color/white"
             android:paddingTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/tiny_padding"
             android:src="@drawable/ic_transformers_banner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,10 +60,11 @@
 
                 <Button
                     android:id="@+id/add_autobot_btn"
+                    style="@style/transformerButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_add"
                     android:text="@string/new_autobot"
-                    style="@style/transformerButton"
                     app:layout_constraintEnd_toStartOf="@id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -79,13 +80,13 @@
                     tools:listitem="@layout/list_item_transformer" />
 
 
-
                 <Button
                     android:id="@+id/add_decepticon_btn"
+                    style="@style/transformerButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_add"
                     android:text="@string/new_decepticon"
-                    style="@style/transformerButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/guideline"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -102,14 +103,13 @@
 
                 <Button
                     android:id="@+id/battle_btn"
+                    style="@style/battleButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/battle"
-                    style="@style/battleButton"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

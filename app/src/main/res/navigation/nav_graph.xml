@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainNavigation"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/transformerFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -24,6 +24,14 @@
         android:name="com.example.ui.home.HomeFragment"
         android:label="homeFragment"
         tools:layout="@layout/fragment_home" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/transformerFragment"
+        android:name="com.example.ui.transformer.TransformerFragment"
+        android:label="transformerFragment"
+        tools:layout="@layout/fragment_transformer" >
 
     </fragment>
 

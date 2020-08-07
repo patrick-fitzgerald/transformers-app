@@ -44,7 +44,6 @@ class HomeFragment : BaseFragment() {
 
     private fun initListViews(recyclerView: RecyclerView, transformersAdapter: TransformersAdapter) {
         recyclerView.apply {
-            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = transformersAdapter
         }
@@ -62,6 +61,10 @@ class HomeFragment : BaseFragment() {
                 }
             }
         )
+        subscribeToContextEvents()
+    }
+
+    private fun subscribeToContextEvents() {
 
         // click events
         homeViewModel.contextEventBus.subscribe { contextEvent ->
@@ -72,5 +75,6 @@ class HomeFragment : BaseFragment() {
                 }
             }
         }.addTo(compositeDisposable)
+
     }
 }

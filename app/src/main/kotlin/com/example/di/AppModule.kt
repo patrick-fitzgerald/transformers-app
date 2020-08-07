@@ -12,6 +12,7 @@ import com.example.api.TransformersApi
 import com.example.repository.TransformersRepository
 import com.example.ui.home.HomeViewModel
 import com.example.ui.splash.SplashViewModel
+import com.example.ui.transformer.TransformerViewModel
 import com.example.util.PreferenceHelper
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -24,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val viewModelModule = module {
     single { SplashViewModel(get(), get()) }
     single { HomeViewModel(get()) }
+    single { TransformerViewModel(get()) }
 }
 
 val networkModule = module {
