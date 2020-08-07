@@ -24,7 +24,7 @@ class TransformerViewModel(
 
     val contextEventBus: PublishSubject<ContextEvent> = PublishSubject.create()
 
-    val transformerTeam = "A" // TODO
+    var transformerTeam = ""
     val transformerName = MutableLiveData<String>()
     val transformerStrength = MutableLiveData<Int>().default(1)
     val transformerIntelligence = MutableLiveData<Int>().default(1)

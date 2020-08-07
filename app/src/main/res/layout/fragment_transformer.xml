@@ -19,7 +19,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_padding"
                 android:layout_marginEnd="@dimen/small_padding"
-                android:text="New Autobot"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

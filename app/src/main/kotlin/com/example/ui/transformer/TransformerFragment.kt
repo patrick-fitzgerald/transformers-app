@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.navigation.fragment.findNavController
 import com.example.R
+import com.example.data.TransformerType
 import com.example.databinding.FragmentTransformerBinding
 import com.example.ui.base.BaseFragment
 import com.example.util.autoCleared
@@ -27,6 +28,22 @@ class TransformerFragment : BaseFragment() {
         viewBinding = FragmentTransformerBinding.inflate(inflater, container, false)
         viewBinding.viewModel = transformerViewModel
         viewBinding.lifecycleOwner = this
+
+        // Parse transformer type from bundle
+        arguments?.let {
+            val safeArgs = TransformerFragmentArgs.fromBundle(it)
+            when (safeArgs.transformerType) {
+                TransformerType.AUTOBOT.name -> {
+                    transformerViewModel.transformerTeam = "A"
+                    viewBinding.title.text = getString(R.string.new_autobot)
+                }
+                TransformerType.DECEPTICON.name -> {
+                    transformerViewModel.transformerTeam = "D"
+                    viewBinding.title.text = getString(R.string.new_decepticon)
+                }
+            }
+        }
+
         return viewBinding.root
     }
 
@@ -54,25 +71,25 @@ class TransformerFragment : BaseFragment() {
 
             // SeekBar change listener
             transformerSeekBar.seekBar?.setOnSeekBarChangeListener(object :
-                    SeekBar.OnSeekBarChangeListener {
+                SeekBar.OnSeekBarChangeListener {
 
-                    override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-                        mutableLiveData.value = progress
-                        transformerSeekBar.seekBarLabel?.text =
-                            "${transformerSeekBar.seekBarLabelText}: $progress"
-                        if (progress < 1) {
-                            // SeekBar Attribute min is only used in API level 26 and higher
-                            // Min value set to 1 for API less than 26
-                            seekBar.progress = 1
-                        }
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
+                    mutableLiveData.value = progress
+                    transformerSeekBar.seekBarLabel?.text =
+                        "${transformerSeekBar.seekBarLabelText}: $progress"
+                    if (progress < 1) {
+                        // SeekBar Attribute min is only used in API level 26 and higher
+                        // Min value set to 1 for API less than 26
+                        seekBar.progress = 1
                     }
+                }
 
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
 
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    }
-                })
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                }
+            })
         }
     }
 
