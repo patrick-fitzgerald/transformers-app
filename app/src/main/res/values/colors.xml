@@ -11,7 +11,7 @@
     <color name="blue">#2b5dc9</color>
     <color name="lightBlue">#7fbfff</color>
     <color name="grey">#979797</color>
-    <color name="lightGrey">#80979797</color>
+    <color name="lightGrey">#40979797</color>
     <color name="red">#ff0000</color>
     <color name="lightRed">#ff7f7f</color>
 </resources>

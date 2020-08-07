@@ -4,4 +4,5 @@
     <string name="transformers_list">Transformers</string>
     <string name="new_autobot">New Autobot</string>
     <string name="new_decepticon">New Decepticon</string>
+    <string name="battle">Battle</string>
 </resources>

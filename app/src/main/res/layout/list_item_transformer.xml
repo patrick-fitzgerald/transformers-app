@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/transformer_name"
-            style="@style/textMedium"
+            style="@style/textMediumBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{transformer.name}"
