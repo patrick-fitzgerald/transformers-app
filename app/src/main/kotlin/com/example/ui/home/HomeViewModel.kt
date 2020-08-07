@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.api.Resource
 import com.example.api.Status
+import com.example.data.response.Transformer
 import com.example.data.response.TransformerListResponse
-import com.example.data.response.TransformerResponse
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel
 import com.example.util.extensions.default
@@ -19,7 +19,7 @@ class HomeViewModel(
 ) : BaseViewModel() {
 
     val isLoading = MutableLiveData<Boolean>().default(true)
-    val transformers = MutableLiveData<List<TransformerResponse>>()
+    val transformers = MutableLiveData<List<Transformer>>()
 
     enum class ContextEvent {
         NAVIGATE_TO_TRANSFORMER_FRAGMENT_AUTOBOT,

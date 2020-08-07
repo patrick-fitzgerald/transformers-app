@@ -71,25 +71,25 @@ class TransformerFragment : BaseFragment() {
 
             // SeekBar change listener
             transformerSeekBar.seekBar?.setOnSeekBarChangeListener(object :
-                SeekBar.OnSeekBarChangeListener {
+                    SeekBar.OnSeekBarChangeListener {
 
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-                    mutableLiveData.value = progress
-                    transformerSeekBar.seekBarLabel?.text =
-                        "${transformerSeekBar.seekBarLabelText}: $progress"
-                    if (progress < 1) {
-                        // SeekBar Attribute min is only used in API level 26 and higher
-                        // Min value set to 1 for API less than 26
-                        seekBar.progress = 1
+                    override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
+                        mutableLiveData.value = progress
+                        transformerSeekBar.seekBarLabel?.text =
+                            "${transformerSeekBar.seekBarLabelText}: $progress"
+                        if (progress < 1) {
+                            // SeekBar Attribute min is only used in API level 26 and higher
+                            // Min value set to 1 for API less than 26
+                            seekBar.progress = 1
+                        }
                     }
-                }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
 
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                }
-            })
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    }
+                })
         }
     }
 

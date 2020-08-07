@@ -6,7 +6,7 @@
 
         <variable
             name="transformer"
-            type="com.example.data.response.TransformerResponse" />
+            type="com.example.data.response.Transformer" />
 
     </data>
 

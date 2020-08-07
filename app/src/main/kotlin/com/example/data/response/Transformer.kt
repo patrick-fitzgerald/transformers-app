@@ -2,8 +2,10 @@ package com.example.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class TransformerResponse(
+//@Entity(primaryKeys = ["id"], tableName = "transformers")
+data class Transformer(
 
+    @SerializedName("id")
     val id: String? = null,
     val name: String = "",
     val team: String = "",
@@ -15,6 +17,7 @@ data class TransformerResponse(
     val courage: Int,
     val firepower: Int,
     val skill: Int,
+//    @ColumnInfo(name = "team_icon")
     @SerializedName("team_icon")
     val teamIcon: String = ""
 

@@ -1,8 +1,8 @@
 package com.example.api
 
 import com.example.data.request.TransformerRequest
+import com.example.data.response.Transformer
 import com.example.data.response.TransformerListResponse
-import com.example.data.response.TransformerResponse
 import retrofit2.http.*
 
 interface TransformersApi {
@@ -14,13 +14,13 @@ interface TransformersApi {
     suspend fun getTransformers(): TransformerListResponse
 
     @POST("transformers")
-    suspend fun postTransformer(@Body transformerRequest: TransformerRequest): TransformerResponse
+    suspend fun postTransformer(@Body transformerRequest: TransformerRequest): Transformer
 
     @PUT("transformers")
-    suspend fun putTransformer(@Body transformerRequest: TransformerRequest): TransformerResponse
+    suspend fun putTransformer(@Body transformerRequest: TransformerRequest): Transformer
 
     @GET("transformers/{id}")
-    suspend fun getTransformer(@Path("id") id: String): TransformerResponse
+    suspend fun getTransformer(@Path("id") id: String): Transformer
 
     @DELETE("transformers/{id}")
     suspend fun deleteTransformer(@Path("id") id: String)

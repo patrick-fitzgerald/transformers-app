@@ -3,8 +3,8 @@ package com.example.repository
 import com.example.api.Resource
 import com.example.api.TransformersApi
 import com.example.data.request.TransformerRequest
+import com.example.data.response.Transformer
 import com.example.data.response.TransformerListResponse
-import com.example.data.response.TransformerResponse
 import timber.log.Timber
 
 class TransformersRepository constructor(
@@ -33,7 +33,7 @@ class TransformersRepository constructor(
         }
     }
 
-    suspend fun postTransformer(transformerRequest: TransformerRequest): Resource<TransformerResponse> {
+    suspend fun postTransformer(transformerRequest: TransformerRequest): Resource<Transformer> {
         return try {
             val response = transformersApi.postTransformer(transformerRequest)
             Timber.d("postTransformer response=$response")

@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class TransformerListResponse(
 
     @SerializedName("transformers")
-    val transformers: List<TransformerResponse>
+    val transformers: List<Transformer>
 )

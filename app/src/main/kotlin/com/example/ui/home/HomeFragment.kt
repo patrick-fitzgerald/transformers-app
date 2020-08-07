@@ -68,7 +68,6 @@ class HomeFragment : BaseFragment() {
         subscribeToContextEvents()
     }
 
-
     private fun subscribeToContextEvents() {
 
         // click events
@@ -76,7 +75,8 @@ class HomeFragment : BaseFragment() {
             context?.let {
                 when (contextEvent) {
                     HomeViewModel.ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT_AUTOBOT -> navigateToTransformerFragment(
-                        TransformerType.AUTOBOT)
+                        TransformerType.AUTOBOT
+                    )
                     HomeViewModel.ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT_DECEPTICON -> navigateToTransformerFragment(TransformerType.DECEPTICON)
                     else -> Unit
                 }

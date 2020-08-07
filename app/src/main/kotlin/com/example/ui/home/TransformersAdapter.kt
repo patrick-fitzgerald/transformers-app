@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.response.TransformerResponse
+import com.example.data.response.Transformer
 import com.example.databinding.ListItemTransformerBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ class TransformersAdapter :
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
-    fun addHeaderAndSubmitList(list: List<TransformerResponse>?) {
+    fun addHeaderAndSubmitList(list: List<Transformer>?) {
         adapterScope.launch {
             val items = list?.map {
                 DataItem.TransformerItem(it)
@@ -45,7 +45,7 @@ class TransformersAdapter :
     class ItemViewHolder private constructor(private val binding: ListItemTransformerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(transformer: TransformerResponse) {
+        fun bind(transformer: Transformer) {
             binding.transformer = transformer
             binding.executePendingBindings()
         }
@@ -72,7 +72,7 @@ class TransformersDiffCallback : DiffUtil.ItemCallback<DataItem>() {
 }
 
 sealed class DataItem {
-    data class TransformerItem(val transformerResponse: TransformerResponse) : DataItem() {
+    data class TransformerItem(val transformerResponse: Transformer) : DataItem() {
         override val id = transformerResponse.id.toString()
     }
 
