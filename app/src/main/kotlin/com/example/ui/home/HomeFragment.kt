@@ -31,8 +31,8 @@ class HomeFragment : BaseFragment() {
         viewBinding.viewModel = homeViewModel
         viewBinding.lifecycleOwner = this
 
-        autoBotViewAdapter = TransformersAdapter(TransformerType.AUTOBOT)
-        decepticonViewAdapter = TransformersAdapter(TransformerType.DECEPTICON)
+        autoBotViewAdapter = TransformersAdapter()
+        decepticonViewAdapter = TransformersAdapter()
 
         initListViews(viewBinding.autobotList, autoBotViewAdapter)
         initListViews(viewBinding.decepticonList, decepticonViewAdapter)

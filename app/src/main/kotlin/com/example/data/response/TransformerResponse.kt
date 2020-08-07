@@ -18,4 +18,14 @@ data class TransformerResponse(
     @SerializedName("team_icon")
     val teamIcon: String = ""
 
-)
+){
+
+    /**
+     * The overall rating of a Transformer is the following formula:
+     * (Strength + Intelligence + Speed + Endurance + Firepower).
+     */
+    fun overallRating(): String {
+        val rating = strength + intelligence + speed + endurance + firepower
+        return "Overall rating: $rating"
+    }
+}

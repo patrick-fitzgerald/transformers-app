@@ -32,13 +32,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{transformer.name}"
+            android:layout_marginTop="@dimen/small_padding"
             android:layout_marginStart="@dimen/small_padding"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/transformer_image"
             app:layout_constraintTop_toTopOf="parent"
             android:lines="1"
             android:ellipsize="end"
             tools:text="Test" />
+
+        <TextView
+            android:id="@+id/transformer_rating"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{transformer.overallRating()}"
+            android:layout_marginStart="@dimen/small_padding"
+            app:layout_constraintStart_toEndOf="@id/transformer_image"
+            app:layout_constraintTop_toBottomOf="@id/transformer_name"
+            android:lines="1"
+            android:ellipsize="end"
+            tools:text="Rating: 8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
