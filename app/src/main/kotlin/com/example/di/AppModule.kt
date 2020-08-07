@@ -1,12 +1,14 @@
 package com.example.di
 
 import android.app.Application
+import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.BuildConfig
 import com.example.api.JwtInterceptor
 import com.example.api.TransformersApi
+import com.example.db.TransformersDatabase
 import com.example.repository.TransformersRepository
 import com.example.ui.home.HomeViewModel
 import com.example.ui.splash.SplashViewModel
@@ -61,23 +63,26 @@ val prefsModule = module {
     single { PreferenceHelper(get()) }
 }
 
+val dbModule = module {
+
+    single {
+        Room.databaseBuilder(get(), TransformersDatabase::class.java, "transformers.db")
+            .build()
+    }
+    single { get<TransformersDatabase>().transformerDao() }
+}
+
+
 val glideModule = module {
 
     fun provideRequestManager(
         application: Application
     ): RequestManager {
-//        val circularProgressDrawable = CircularProgressDrawable(application)
-//        circularProgressDrawable.strokeWidth = 5f
-//        circularProgressDrawable.centerRadius = 30f
-//        circularProgressDrawable.start()
-
-        val requestOptions = RequestOptions()
-//            .placeholder(circularProgressDrawable)
-
         return Glide.with(application)
-            .setDefaultRequestOptions(requestOptions)
+            .setDefaultRequestOptions(RequestOptions())
     }
     single { provideRequestManager(androidApplication()) }
 }
 
-val appModules = listOf(viewModelModule, networkModule, repositoryModule, prefsModule, glideModule)
+val appModules =
+    listOf(viewModelModule, networkModule, repositoryModule, prefsModule, dbModule, glideModule)

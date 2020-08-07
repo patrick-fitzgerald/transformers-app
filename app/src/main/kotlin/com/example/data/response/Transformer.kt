@@ -1,12 +1,14 @@
 package com.example.data.response
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
-//@Entity(primaryKeys = ["id"], tableName = "transformers")
+@Entity(primaryKeys = ["id"], tableName = "transformers")
 data class Transformer(
 
     @SerializedName("id")
-    val id: String? = null,
+    val id: String = "",
     val name: String = "",
     val team: String = "",
     val strength: Int,
@@ -17,7 +19,7 @@ data class Transformer(
     val courage: Int,
     val firepower: Int,
     val skill: Int,
-//    @ColumnInfo(name = "team_icon")
+    @ColumnInfo(name = "team_icon")
     @SerializedName("team_icon")
     val teamIcon: String = ""
 
