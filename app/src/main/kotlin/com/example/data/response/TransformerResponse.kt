@@ -1,5 +1,7 @@
 package com.example.data.response
 
+import com.google.gson.annotations.SerializedName
+
 data class TransformerResponse(
 
     val id: String? = null,
@@ -13,6 +15,7 @@ data class TransformerResponse(
     val courage: Int,
     val firepower: Int,
     val skill: Int,
-    val team_icon: String = ""
+    @SerializedName("team_icon")
+    val teamIcon: String = ""
 
 )

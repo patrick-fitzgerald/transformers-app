@@ -14,18 +14,30 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height"
-        android:layout_marginHorizontal="@dimen/medium_padding">
+        android:layout_marginHorizontal="@dimen/small_padding">
+
+        <ImageView
+            android:id="@+id/transformer_image"
+            android:layout_width="@dimen/list_item_image"
+            android:layout_height="@dimen/list_item_image"
+            app:imageUrl="@{transformer.teamIcon}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <TextView
             android:id="@+id/transformer_name"
             style="@style/textMedium"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{transformer.name}"
+            android:layout_marginStart="@dimen/small_padding"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/transformer_image"
+            app:layout_constraintTop_toTopOf="parent"
+            android:lines="1"
+            android:ellipsize="end"
             tools:text="Test" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

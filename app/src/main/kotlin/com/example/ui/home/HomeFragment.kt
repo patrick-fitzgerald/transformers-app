@@ -55,10 +55,10 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.transformers.observe(
             viewLifecycleOwner,
-            Observer { transformers ->
-                transformers?.let {
-                    autoBotViewAdapter.addHeaderAndSubmitList(it)
-                    decepticonViewAdapter.addHeaderAndSubmitList(it)
+            Observer { transformersResponse ->
+                transformersResponse?.let { transformers ->
+                    autoBotViewAdapter.addHeaderAndSubmitList(transformers.filter { it.team == "A" })
+                    decepticonViewAdapter.addHeaderAndSubmitList(transformers.filter { it.team == "D" })
                 }
             }
         )

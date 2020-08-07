@@ -1,6 +1,12 @@
 package com.example.di
 
+import android.app.Application
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
 import com.example.BuildConfig
+import com.example.R
 import com.example.api.JwtInterceptor
 import com.example.api.TransformersApi
 import com.example.repository.TransformersRepository
@@ -10,6 +16,7 @@ import com.example.util.PreferenceHelper
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -54,4 +61,24 @@ val prefsModule = module {
     single { PreferenceHelper(get()) }
 }
 
-val appModules = listOf(viewModelModule, networkModule, repositoryModule, prefsModule)
+val glideModule = module {
+
+    fun provideRequestManager(
+        application: Application
+    ): RequestManager {
+//        val circularProgressDrawable = CircularProgressDrawable(application)
+//        circularProgressDrawable.strokeWidth = 5f
+//        circularProgressDrawable.centerRadius = 30f
+//        circularProgressDrawable.start()
+
+        val requestOptions =  RequestOptions()
+//            .placeholder(circularProgressDrawable)
+
+        return Glide.with(application)
+            .setDefaultRequestOptions(requestOptions)
+    }
+    single { provideRequestManager(androidApplication()) }
+}
+
+
+val appModules = listOf(viewModelModule, networkModule, repositoryModule, prefsModule, glideModule)

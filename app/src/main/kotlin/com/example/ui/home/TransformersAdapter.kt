@@ -92,8 +92,8 @@ class TransformersAdapter(private val transformerType: TransformerType) :
     class ItemViewHolder private constructor(private val binding: ListItemTransformerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TransformerResponse) {
-            binding.transformerName.text = item.name
+        fun bind(transformer: TransformerResponse) {
+            binding.transformer = transformer
             binding.executePendingBindings()
         }
 
