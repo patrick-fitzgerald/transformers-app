@@ -25,7 +25,7 @@ class TransformerFragment : BaseFragment() {
 
     private var viewBinding by autoCleared<FragmentTransformerBinding>()
     private val transformerViewModel: TransformerViewModel by viewModel()
-    private var transformerViewType: TransformerViewType = TransformerViewType.CREATE
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,11 +54,11 @@ class TransformerFragment : BaseFragment() {
             // Parse transformer view type
             when (safeArgs.transformerViewType) {
                 TransformerViewType.CREATE.name -> {
-                    transformerViewType = TransformerViewType.CREATE
+                    transformerViewModel.transformerViewType = TransformerViewType.CREATE
                     parseTransformerType(safeArgs)
                 }
                 TransformerViewType.VIEW.name -> {
-                    transformerViewType = TransformerViewType.VIEW
+                    transformerViewModel.transformerViewType = TransformerViewType.VIEW
                     parseTransformerId(safeArgs)
                 }
             }
@@ -71,19 +71,18 @@ class TransformerFragment : BaseFragment() {
         when (safeArgs.transformerType) {
             TransformerType.AUTOBOT.name -> {
                 transformerViewModel.transformerTeam = "A"
-                viewBinding.title.text = getString(R.string.new_autobot)
+                transformerViewModel.viewTitle.value = getString(R.string.new_autobot)
             }
             TransformerType.DECEPTICON.name -> {
                 transformerViewModel.transformerTeam = "D"
-                viewBinding.title.text = getString(R.string.new_decepticon)
+                transformerViewModel.viewTitle.value = getString(R.string.new_decepticon)
             }
         }
     }
 
     // Parse transformer id
     private fun parseTransformerId(safeArgs: TransformerFragmentArgs){
-
-//        safeArgs.transformerId
+        transformerViewModel.getTransformerRequest(safeArgs.transformerId)
     }
 
     private fun initSeekBarChangeListeners() {

@@ -1,6 +1,6 @@
 package com.example.data.request
 
-data class TransformerRequest(
+data class CreateTransformerRequest(
 
     val name: String? = "",
     val team: String? = "",

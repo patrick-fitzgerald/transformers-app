@@ -4,8 +4,11 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.R
 import com.example.api.Status
-import com.example.data.request.TransformerRequest
+import com.example.data.request.CreateTransformerRequest
+import com.example.data.request.UpdateTransformerRequest
+import com.example.data.response.Transformer
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel
 import com.example.util.extensions.default
@@ -23,8 +26,12 @@ class TransformerViewModel(
     }
 
     val contextEventBus: PublishSubject<ContextEvent> = PublishSubject.create()
+    val isLoading = MutableLiveData<Boolean>().default(false)
+    val viewTitle = MutableLiveData<String>()
+    var transformerViewType: TransformerViewType = TransformerViewType.CREATE
 
     var transformerTeam = ""
+    var transformerId = ""
     val transformerName = MutableLiveData<String>()
     val transformerStrength = MutableLiveData<Int>().default(1)
     val transformerIntelligence = MutableLiveData<Int>().default(1)
@@ -39,14 +46,105 @@ class TransformerViewModel(
         // Name validation
         if (transformerName.value.isNullOrEmpty()) {
             Toast.makeText(context, "Please enter a Transformer name", LENGTH_LONG).show()
-        } else {
-            createTransformerRequest()
+            return
+        }
+
+        when(transformerViewType){
+
+            TransformerViewType.CREATE -> {
+                createTransformerRequest()
+            }
+            TransformerViewType.VIEW -> {
+                updateTransformerRequest()
+            }
+
+        }
+    }
+
+    fun getTransformerRequest(transformerId: String) {
+        Timber.d("lookupTransformer with id: $transformerId")
+        viewModelScope.launch(Dispatchers.IO) {
+            isLoading.postValue(true)
+            val response = transformersRepository.getTransformer(transformerId)
+            isLoading.postValue(false)
+            viewModelScope.launch(Dispatchers.Main) {
+                when (response.status) {
+                    Status.SUCCESS -> {
+                        Timber.d("getTransformerRequest response: ${response.data}")
+                        parseTransformer(response.data)
+                    }
+                    Status.ERROR -> {
+                        showError("getTransformerRequest ERROR: ${response.message}")
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun updateTransformerRequest( ) {
+        val updateTransformerRequest = UpdateTransformerRequest(
+            name = transformerName.value,
+            id = transformerId,
+            team = transformerTeam,
+            strength = transformerStrength.value,
+            intelligence = transformerIntelligence.value,
+            speed = transformerSpeed.value,
+            endurance = transformerEndurance.value,
+            rank = transformerRank.value,
+            courage = transformerCourage.value,
+            firepower = transformerFirepower.value,
+            skill = transformerSkill.value
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            isLoading.postValue(true)
+            val response = transformersRepository.putTransformer(updateTransformerRequest)
+            isLoading.postValue(false)
+            viewModelScope.launch(Dispatchers.Main) {
+                when (response.status) {
+                    Status.SUCCESS -> {
+                        Timber.d("updateTransformerRequest response: ${response.data}")
+                        parseTransformer(response.data)
+                        closeView()
+                    }
+                    Status.ERROR -> {
+                        showError("updateTransformerRequest ERROR: ${response.message}")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun parseTransformer(transformer: Transformer?) {
+
+        // Update MutableLiveData values
+
+        transformer?.let {
+            // Update view title
+            when(it.team){
+                "A" -> viewTitle.value = context.getString(R.string.update_autobot)
+                "D" -> viewTitle.value = context.getString(R.string.update_decepticon)
+                else -> Unit
+            }
+
+            transformerId = it.id
+            transformerTeam = it.team
+            transformerName.value = it.name
+            transformerStrength.value = it.strength
+            transformerIntelligence.value = it.intelligence
+            transformerSpeed.value = it.speed
+            transformerEndurance.value = it.endurance
+            transformerRank.value = it.rank
+            transformerCourage.value = it.courage
+            transformerFirepower.value = it.firepower
+            transformerSkill.value = it.skill
         }
     }
 
     private fun createTransformerRequest() {
 
-        val transformerRequest = TransformerRequest(
+        val createTransformerRequest = CreateTransformerRequest(
             name = transformerName.value,
             team = transformerTeam,
             strength = transformerStrength.value,
@@ -58,9 +156,11 @@ class TransformerViewModel(
             firepower = transformerFirepower.value,
             skill = transformerSkill.value
         )
-        Timber.d("transformerRequest: $transformerRequest")
+        Timber.d("createTransformerRequest: $createTransformerRequest")
         viewModelScope.launch(Dispatchers.IO) {
-            val response = transformersRepository.postTransformer(transformerRequest)
+            isLoading.postValue(true)
+            val response = transformersRepository.postTransformer(createTransformerRequest)
+            isLoading.postValue(false)
             viewModelScope.launch(Dispatchers.Main) {
                 when (response.status) {
                     Status.SUCCESS -> {

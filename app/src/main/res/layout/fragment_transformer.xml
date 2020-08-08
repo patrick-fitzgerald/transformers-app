@@ -4,140 +4,169 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/medium_padding">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/textLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_padding"
-                android:layout_marginEnd="@dimen/small_padding"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="@dimen/splash_progress_bar"
+                android:layout_height="@dimen/splash_progress_bar"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/grey"
 
-            <ImageButton
-                android:id="@+id/close_btn"
-                android:layout_width="@dimen/close_button"
-                android:layout_height="@dimen/close_button"
-                android:src="@drawable/ic_close"
-                android:background="@color/transparent"
-                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{() -> viewModel.closeView()}"
+                app:visible_if="@{viewModel.isLoading}"
+
                 />
 
-
-            <EditText
-                android:id="@+id/transformer_name"
-                style="@style/textMedium"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_padding"
-                android:layout_marginTop="@dimen/small_padding"
-                android:layout_marginEnd="@dimen/small_padding"
-                android:hint="@string/transformer_name"
-                android:inputType="textPersonName"
-                android:text="@={viewModel.transformerName}"
+                android:layout_height="match_parent"
+                android:padding="@dimen/medium_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:visible_if="@{!viewModel.isLoading}">
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/textLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_padding"
+                    android:layout_marginEnd="@dimen/small_padding"
+                    android:text="@={viewModel.viewTitle}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/close_btn"
+                    android:layout_width="@dimen/close_button"
+                    android:layout_height="@dimen/close_button"
+                    android:background="@color/transparent"
+                    android:onClick="@{() -> viewModel.closeView()}"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_close"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_strength"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/transformer_name"
-                app:seekBarLabelText="@string/strength" />
-
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_intelligence"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_strength"
-                app:seekBarLabelText="@string/intelligence" />
-
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_speed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_intelligence"
-                app:seekBarLabelText="@string/speed" />
+                <EditText
+                    android:id="@+id/transformer_name"
+                    style="@style/textMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_padding"
+                    android:layout_marginTop="@dimen/small_padding"
+                    android:layout_marginEnd="@dimen/small_padding"
+                    android:hint="@string/transformer_name"
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.transformerName}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
 
 
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_endurance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_speed"
-                app:seekBarLabelText="@string/endurance" />
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_strength"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/transformer_name"
+                    app:seekBarLabelText="@string/strength" />
+
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_intelligence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_strength"
+                    app:seekBarLabelText="@string/intelligence" />
+
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_speed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_intelligence"
+                    app:seekBarLabelText="@string/speed" />
 
 
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_rank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_endurance"
-                app:seekBarLabelText="@string/rank" />
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_endurance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_speed"
+                    app:seekBarLabelText="@string/endurance" />
 
 
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_courage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_rank"
-                app:seekBarLabelText="@string/courage" />
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_endurance"
+                    app:seekBarLabelText="@string/rank" />
 
 
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_firepower"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_courage"
-                app:seekBarLabelText="@string/firepower" />
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_courage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_rank"
+                    app:seekBarLabelText="@string/courage" />
 
-            <com.example.ui.transformer.TransformerSeekBar
-                android:id="@+id/seek_bar_skill"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_firepower"
-                app:seekBarLabelText="@string/skill" />
 
-            <Button
-                android:id="@+id/save_btn"
-                style="@style/transformerButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large_padding"
-                android:onClick="@{() -> viewModel.onSaveCtaClick()}"
-                android:text="@string/save"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seek_bar_skill" />
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_firepower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_courage"
+                    app:seekBarLabelText="@string/firepower" />
+
+                <com.example.ui.transformer.TransformerSeekBar
+                    android:id="@+id/seek_bar_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_firepower"
+                    app:seekBarLabelText="@string/skill" />
+
+                <Button
+                    android:id="@+id/save_btn"
+                    style="@style/transformerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_padding"
+                    android:onClick="@{() -> viewModel.onSaveCtaClick()}"
+                    android:text="@string/save"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_skill" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

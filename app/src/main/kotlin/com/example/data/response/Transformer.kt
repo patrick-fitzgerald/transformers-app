@@ -33,4 +33,5 @@ data class Transformer(
         val rating = strength + intelligence + speed + endurance + firepower
         return "Overall rating: $rating"
     }
+
 }

@@ -10,9 +10,6 @@ interface TransformerDao {
     @Query("SELECT * FROM transformers")
     fun findTransformers(): LiveData<List<Transformer>>
 
-    @Query("SELECT * from transformers WHERE id= :id LIMIT 1")
-    suspend fun findTransformer(id: String): Transformer
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransformer(transformer: Transformer)
 

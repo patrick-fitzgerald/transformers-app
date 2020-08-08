@@ -49,7 +49,6 @@ class HomeFragment : BaseFragment() {
         initListViews(viewBinding.autobotList, autoBotViewAdapter)
         initListViews(viewBinding.decepticonList, decepticonViewAdapter)
 
-        homeViewModel.getTransformersRequest()
 
         return viewBinding.root
     }
@@ -76,6 +75,7 @@ class HomeFragment : BaseFragment() {
                 }
             }
         )
+        homeViewModel.getTransformersRequest()
         subscribeToContextEvents()
     }
 
