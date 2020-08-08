@@ -8,6 +8,7 @@
     <dimen name="splash_progress_bar">100dp</dimen>
     <dimen name="list_item_height">70dp</dimen>
     <dimen name="list_item_image">40dp</dimen>
+    <dimen name="close_button">30dp</dimen>
 
 
 </resources>

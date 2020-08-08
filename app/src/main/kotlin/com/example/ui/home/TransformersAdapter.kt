@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TransformersAdapter :
+class TransformersAdapter(private val clickListener: TransformerListener) :
     ListAdapter<DataItem, RecyclerView.ViewHolder>(TransformersDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -33,7 +33,7 @@ class TransformersAdapter :
         when (holder) {
             is ItemViewHolder -> {
                 val transformerItem = getItem(position) as DataItem.TransformerItem
-                holder.bind(transformerItem.transformerResponse)
+                holder.bind(transformerItem.transformerResponse, clickListener)
             }
         }
     }
@@ -45,8 +45,9 @@ class TransformersAdapter :
     class ItemViewHolder private constructor(private val binding: ListItemTransformerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(transformer: Transformer) {
+        fun bind(transformer: Transformer, clickListener: TransformerListener) {
             binding.transformer = transformer
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -58,6 +59,10 @@ class TransformersAdapter :
             }
         }
     }
+}
+
+class TransformerListener(val clickListener: (transformerId: String) -> Unit) {
+    fun onClick(transformer: Transformer) = clickListener(transformer.id)
 }
 
 class TransformersDiffCallback : DiffUtil.ItemCallback<DataItem>() {

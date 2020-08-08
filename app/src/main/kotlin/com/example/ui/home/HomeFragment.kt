@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -11,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.R
 import com.example.data.TransformerType
+import com.example.data.response.Transformer
 import com.example.databinding.FragmentHomeBinding
 import com.example.ui.base.BaseFragment
+import com.example.ui.transformer.TransformerViewType
 import com.example.util.Constants
 import com.example.util.autoCleared
 import io.reactivex.rxkotlin.addTo
@@ -26,6 +29,10 @@ class HomeFragment : BaseFragment() {
     private lateinit var autoBotViewAdapter: TransformersAdapter
     private lateinit var decepticonViewAdapter: TransformersAdapter
 
+    private val listViewClickListener = TransformerListener { transformerId ->
+        navigateToTransformerFragmentView(transformerId)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,8 +42,9 @@ class HomeFragment : BaseFragment() {
         viewBinding.viewModel = homeViewModel
         viewBinding.lifecycleOwner = this
 
-        autoBotViewAdapter = TransformersAdapter()
-        decepticonViewAdapter = TransformersAdapter()
+
+        autoBotViewAdapter = TransformersAdapter(listViewClickListener)
+        decepticonViewAdapter = TransformersAdapter(listViewClickListener)
 
         initListViews(viewBinding.autobotList, autoBotViewAdapter)
         initListViews(viewBinding.decepticonList, decepticonViewAdapter)
@@ -46,7 +54,10 @@ class HomeFragment : BaseFragment() {
         return viewBinding.root
     }
 
-    private fun initListViews(recyclerView: RecyclerView, transformersAdapter: TransformersAdapter) {
+    private fun initListViews(
+        recyclerView: RecyclerView,
+        transformersAdapter: TransformersAdapter
+    ) {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = transformersAdapter
@@ -74,20 +85,42 @@ class HomeFragment : BaseFragment() {
         homeViewModel.contextEventBus.subscribe { contextEvent ->
             context?.let {
                 when (contextEvent) {
-                    HomeViewModel.ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT_AUTOBOT -> navigateToTransformerFragment(
-                        TransformerType.AUTOBOT
-                    )
-                    HomeViewModel.ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT_DECEPTICON -> navigateToTransformerFragment(TransformerType.DECEPTICON)
+                    HomeViewModel.ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT_AUTOBOT ->
+                        navigateToTransformerFragmentCreate(
+                            TransformerType.AUTOBOT
+                        )
+                    HomeViewModel.ContextEvent.NAVIGATE_TO_TRANSFORMER_FRAGMENT_DECEPTICON ->
+                        navigateToTransformerFragmentCreate(
+                            TransformerType.DECEPTICON
+                        )
                     else -> Unit
                 }
             }
         }.addTo(compositeDisposable)
     }
 
-    private fun navigateToTransformerFragment(transformerType: TransformerType) {
+    private fun navigateToTransformerFragmentCreate(
+        transformerType: TransformerType
+    ) {
         findNavController().navigate(
             R.id.action_homeFragment_to_transformerFragment,
-            bundleOf(Constants.BUNDLE_TRANSFORMER_TYPE to transformerType.name)
+            bundleOf(
+                Constants.BUNDLE_TRANSFORMER_VIEW_TYPE to TransformerViewType.CREATE.name,
+                Constants.BUNDLE_TRANSFORMER_TYPE to transformerType.name
+
+            )
+        )
+    }
+
+    private fun navigateToTransformerFragmentView(
+        transformerId: String
+    ) {
+        findNavController().navigate(
+            R.id.action_homeFragment_to_transformerFragment,
+            bundleOf(
+                Constants.BUNDLE_TRANSFORMER_VIEW_TYPE to TransformerViewType.VIEW.name,
+                Constants.BUNDLE_TRANSFORMER_ID to transformerId
+            )
         )
     }
 }

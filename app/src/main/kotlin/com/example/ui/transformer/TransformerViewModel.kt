@@ -65,8 +65,7 @@ class TransformerViewModel(
                 when (response.status) {
                     Status.SUCCESS -> {
                         Timber.d("createTransformerRequest response: ${response.data}")
-                        contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
-                        transformerName.value = ""
+                        closeView()
                     }
                     Status.ERROR -> {
                         showError("createTransformerRequest ERROR: ${response.message}")
@@ -74,5 +73,10 @@ class TransformerViewModel(
                 }
             }
         }
+    }
+
+    fun closeView() {
+        contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
+        transformerName.value = ""
     }
 }

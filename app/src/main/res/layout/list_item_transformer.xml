@@ -8,36 +8,41 @@
             name="transformer"
             type="com.example.data.response.Transformer" />
 
+        <variable
+            name="clickListener"
+            type="com.example.ui.home.TransformerListener" />
+
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/small_padding">
+        android:layout_marginHorizontal="@dimen/small_padding"
+        android:onClick="@{() -> clickListener.onClick(transformer)}">
+
 
         <ImageView
             android:id="@+id/transformer_image"
             android:layout_width="@dimen/list_item_image"
             android:layout_height="@dimen/list_item_image"
             app:imageUrl="@{transformer.teamIcon}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/transformer_name"
             style="@style/textMediumBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{transformer.name}"
-            android:layout_marginTop="@dimen/small_padding"
             android:layout_marginStart="@dimen/small_padding"
+            android:layout_marginTop="@dimen/small_padding"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{transformer.name}"
             app:layout_constraintStart_toEndOf="@id/transformer_image"
             app:layout_constraintTop_toTopOf="parent"
-            android:lines="1"
-            android:ellipsize="end"
             tools:text="Test" />
 
         <TextView
@@ -45,12 +50,12 @@
             style="@style/textSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{transformer.overallRating()}"
             android:layout_marginStart="@dimen/small_padding"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{transformer.overallRating()}"
             app:layout_constraintStart_toEndOf="@id/transformer_image"
             app:layout_constraintTop_toBottomOf="@id/transformer_name"
-            android:lines="1"
-            android:ellipsize="end"
             tools:text="Rating: 8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
