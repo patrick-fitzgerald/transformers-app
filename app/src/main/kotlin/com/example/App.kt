@@ -1,6 +1,7 @@
 package com.example
 
 import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.example.di.appModules
 import com.example.util.TimberDebugTree
 import com.example.util.TimberReleaseTree
@@ -11,7 +12,7 @@ import org.koin.core.context.startKoin
 import timber.log.Timber
 import javax.net.ssl.SSLContext
 
-open class App : Application() {
+open class App : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         initTimber()

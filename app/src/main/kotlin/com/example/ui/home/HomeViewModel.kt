@@ -38,7 +38,6 @@ class HomeViewModel(
 
     fun getTransformersRequest() {
         viewModelScope.launch(Dispatchers.IO) {
-            isLoading.postValue(true)
             val response: Resource<TransformerListResponse> =
                 transformersRepository.getTransformersFromApi()
             isLoading.postValue(false)

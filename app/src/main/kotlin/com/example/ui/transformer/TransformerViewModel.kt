@@ -5,10 +5,12 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.R
+import com.example.api.Resource
 import com.example.api.Status
 import com.example.data.request.CreateTransformerRequest
 import com.example.data.request.UpdateTransformerRequest
 import com.example.data.response.Transformer
+import com.example.data.response.TransformerListResponse
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel
 import com.example.util.extensions.default
@@ -49,7 +51,7 @@ class TransformerViewModel(
             return
         }
 
-        when(transformerViewType){
+        when (transformerViewType) {
 
             TransformerViewType.CREATE -> {
                 createTransformerRequest()
@@ -59,6 +61,25 @@ class TransformerViewModel(
             }
 
         }
+    }
+
+    fun onRandomValuesCtaClick() {
+        transformerStrength.value = (1..10).random()
+        transformerIntelligence.value = (1..10).random()
+        transformerSpeed.value = (1..10).random()
+        transformerEndurance.value = (1..10).random()
+        transformerRank.value = (1..10).random()
+        transformerCourage.value = (1..10).random()
+        transformerFirepower.value = (1..10).random()
+        transformerSkill.value = (1..10).random()
+    }
+
+    fun onDeleteCtaClick() {
+        deleteTransformerRequest(transformerId)
+    }
+
+    fun isCreateMode(): Boolean {
+        return transformerViewType == TransformerViewType.CREATE
     }
 
     fun getTransformerRequest(transformerId: String) {
@@ -82,7 +103,27 @@ class TransformerViewModel(
     }
 
 
-    private fun updateTransformerRequest( ) {
+    private fun deleteTransformerRequest(transformerId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            isLoading.postValue(true)
+            val response = transformersRepository.deleteTransformer(transformerId)
+            isLoading.postValue(false)
+            viewModelScope.launch(Dispatchers.Main) {
+                when (response.status) {
+                    Status.SUCCESS -> {
+                        Timber.d("deleteTransformerRequest response: ${response.data}")
+                        closeView()
+                    }
+                    Status.ERROR -> {
+                        showError("deleteTransformerRequest ERROR: ${response.message}")
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun updateTransformerRequest() {
         val updateTransformerRequest = UpdateTransformerRequest(
             name = transformerName.value,
             id = transformerId,
@@ -122,7 +163,7 @@ class TransformerViewModel(
 
         transformer?.let {
             // Update view title
-            when(it.team){
+            when (it.team) {
                 "A" -> viewTitle.value = context.getString(R.string.update_autobot)
                 "D" -> viewTitle.value = context.getString(R.string.update_decepticon)
                 else -> Unit
@@ -176,7 +217,19 @@ class TransformerViewModel(
     }
 
     fun closeView() {
+        resetValues()
         contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
+    }
+
+    private fun resetValues() {
         transformerName.value = ""
+        transformerStrength.value = 1
+        transformerIntelligence.value =  1
+        transformerSpeed.value =  1
+        transformerEndurance.value =  1
+        transformerRank.value =  1
+        transformerCourage.value =  1
+        transformerFirepower.value =  1
+        transformerSkill.value =  1
     }
 }

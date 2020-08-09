@@ -45,10 +45,24 @@ class TransformersRepository constructor(
     suspend fun getTransformer(transformerId: String): Resource<Transformer> {
         return try {
             val transformer = transformersApi.getTransformer(transformerId)
-            Timber.d("getTransformer response=$transformer")
+            Timber.d("getTransformer transformerId=$transformerId response=$transformer")
             Resource.success(data = transformer)
         } catch (exception: Exception) {
             Timber.e("getTransformers exception=$exception")
+            Resource.error(msg = exception.message ?: "An error occurred", data = null)
+        }
+    }
+
+    suspend fun deleteTransformer(transformerId: String): Resource<Transformer> {
+        return try {
+            // API request
+            transformersApi.deleteTransformer(transformerId)
+            // DB delete
+            transformersDatabase.transformerDao().deleteTransformer(transformerId)
+            Timber.d("deleteTransformer transformerId=$transformerId")
+            Resource.success(data = null)
+        } catch (exception: Exception) {
+            Timber.e("deleteTransformer exception=$exception")
             Resource.error(msg = exception.message ?: "An error occurred", data = null)
         }
     }
@@ -61,14 +75,13 @@ class TransformersRepository constructor(
             // DB insert
             transformersDatabase.transformerDao().insertTransformer(transformer)
 
-            Timber.d("postTransformer response=$transformer")
+            Timber.d("putTransformer response=$transformer")
             Resource.success(data = transformer)
         } catch (exception: Exception) {
-            Timber.e("postTransformer exception=$exception")
+            Timber.e("putTransformer exception=$exception")
             Resource.error(msg = exception.message ?: "An error occurred", data = null)
         }
     }
-
 
     suspend fun postTransformer(createTransformerRequest: CreateTransformerRequest): Resource<Transformer> {
         return try {
@@ -88,10 +101,10 @@ class TransformersRepository constructor(
     suspend fun getAllSpark(): Resource<String> {
         return try {
             val response = transformersApi.getAllSpark()
-            Timber.d("allSpark response=$response")
+            Timber.d("getAllSpark response=$response")
             Resource.success(data = response)
         } catch (exception: Exception) {
-            Timber.e("allSpark exception=$exception")
+            Timber.e("getAllSpark exception=$exception")
             Resource.error(msg = exception.message ?: "An error occurred", data = null)
         }
     }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.R
 import com.example.data.TransformerType
@@ -66,7 +67,7 @@ class TransformerFragment : BaseFragment() {
     }
 
     // Parse transformer type
-    private fun parseTransformerType(safeArgs: TransformerFragmentArgs){
+    private fun parseTransformerType(safeArgs: TransformerFragmentArgs) {
 
         when (safeArgs.transformerType) {
             TransformerType.AUTOBOT.name -> {
@@ -81,7 +82,7 @@ class TransformerFragment : BaseFragment() {
     }
 
     // Parse transformer id
-    private fun parseTransformerId(safeArgs: TransformerFragmentArgs){
+    private fun parseTransformerId(safeArgs: TransformerFragmentArgs) {
         transformerViewModel.getTransformerRequest(safeArgs.transformerId)
     }
 
@@ -106,6 +107,7 @@ class TransformerFragment : BaseFragment() {
                 SeekBar.OnSeekBarChangeListener {
 
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
+                    // Update mutableLiveData when seekbar progress is updated
                     mutableLiveData.value = progress
                     transformerSeekBar.seekBarLabel?.text =
                         "${transformerSeekBar.seekBarLabelText}: $progress"
@@ -122,6 +124,14 @@ class TransformerFragment : BaseFragment() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 }
             })
+
+            // Update seekbar progress when mutableLiveData is updated
+            mutableLiveData.observe(
+                viewLifecycleOwner,
+                Observer { value ->
+                    transformerSeekBar.seekBar?.progress = value
+                }
+            )
         }
     }
 

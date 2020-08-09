@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/ic_add"
                     android:onClick="@{() -> viewModel.onAddAutobotBtnClick()}"
-                    android:text="@string/new_autobot"
+                    android:text="@string/new_autobot_btn"
                     app:layout_constraintEnd_toStartOf="@id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/ic_add"
                     android:onClick="@{() -> viewModel.onAddDecepticonBtnClick()}"
-                    android:text="@string/new_decepticon"
+                    android:text="@string/new_decepticon_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/guideline"
                     app:layout_constraintTop_toTopOf="parent" />

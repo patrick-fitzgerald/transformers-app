@@ -49,7 +49,6 @@ class HomeFragment : BaseFragment() {
         initListViews(viewBinding.autobotList, autoBotViewAdapter)
         initListViews(viewBinding.decepticonList, decepticonViewAdapter)
 
-
         return viewBinding.root
     }
 
@@ -65,6 +64,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+        homeViewModel.getTransformersRequest()
 
         homeViewModel.transformers.observe(
             viewLifecycleOwner,
@@ -75,7 +75,7 @@ class HomeFragment : BaseFragment() {
                 }
             }
         )
-        homeViewModel.getTransformersRequest()
+
         subscribeToContextEvents()
     }
 

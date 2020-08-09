@@ -16,11 +16,8 @@ interface TransformerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransformers(transformers: List<Transformer>)
 
-    @Update
-    suspend fun updateTransformer(transformer: Transformer)
-
-    @Delete
-    suspend fun deleteTransformer(transformer: Transformer)
+    @Query("DELETE FROM transformers WHERE id = :id")
+    suspend fun deleteTransformer(id: String)
 
 
 }

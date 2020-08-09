@@ -74,6 +74,7 @@
                     android:hint="@string/transformer_name"
                     android:inputType="textPersonName"
                     android:text="@={viewModel.transformerName}"
+                    android:imeOptions="actionDone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title" />
@@ -156,6 +157,20 @@
                     app:seekBarLabelText="@string/skill" />
 
                 <Button
+                    android:id="@+id/random_btn"
+                    style="@style/transformerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_padding"
+                    android:onClick="@{() -> viewModel.onRandomValuesCtaClick()}"
+                    android:text="@string/random"
+                    app:visible_if="@{viewModel.isCreateMode()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_skill" />
+
+
+                <Button
                     android:id="@+id/save_btn"
                     style="@style/transformerButton"
                     android:layout_width="match_parent"
@@ -165,7 +180,20 @@
                     android:text="@string/save"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/seek_bar_skill" />
+                    app:layout_constraintTop_toBottomOf="@id/random_btn" />
+
+                <Button
+                    android:id="@+id/delete_btn"
+                    style="@style/deleteButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_padding"
+                    android:onClick="@{() -> viewModel.onDeleteCtaClick()}"
+                    app:visible_if="@{!viewModel.isCreateMode()}"
+                    android:text="@string/delete"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/save_btn" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
