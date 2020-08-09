@@ -26,7 +26,6 @@
             android:id="@+id/transformer_image"
             android:layout_width="@dimen/list_item_image"
             android:layout_height="@dimen/list_item_image"
-            android:background="@color/grey"
             app:imageUrl="@{transformer.teamIcon}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

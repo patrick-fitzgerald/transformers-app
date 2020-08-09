@@ -18,7 +18,6 @@ class JwtInterceptor : Interceptor, KoinComponent {
     override fun intercept(chain: Interceptor.Chain): Response {
 
         val requestBuilder = chain.request().newBuilder()
-        requestBuilder.addHeader("Content-Type", "application/json")
 
         prefs.jwtToken?.let { jwtToken ->
             Timber.d("jwtToken: $jwtToken")

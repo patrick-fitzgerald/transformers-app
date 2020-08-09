@@ -96,9 +96,10 @@ dependencies {
     implementation( "io.reactivex.rxjava2:rxandroid:$rx_java_version")
     implementation( "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version")
 
-    // glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"

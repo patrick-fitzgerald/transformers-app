@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.BuildConfig
+import com.example.R
 import com.example.api.JwtInterceptor
 import com.example.api.TransformersApi
 import com.example.db.TransformersDatabase
@@ -22,6 +23,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 val viewModelModule = module {
     single { SplashViewModel(get(), get()) }
@@ -73,16 +75,5 @@ val dbModule = module {
     }
 }
 
-val glideModule = module {
-
-    fun provideRequestManager(
-        application: Application
-    ): RequestManager {
-        return Glide.with(application)
-            .setDefaultRequestOptions(RequestOptions())
-    }
-    single { provideRequestManager(androidApplication()) }
-}
-
 val appModules =
-    listOf(viewModelModule, networkModule, repositoryModule, prefsModule, dbModule, glideModule)
+    listOf(viewModelModule, networkModule, repositoryModule, prefsModule, dbModule)
