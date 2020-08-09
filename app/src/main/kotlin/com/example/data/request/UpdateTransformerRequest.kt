@@ -1,6 +1,6 @@
 package com.example.data.request
 
-data class UpdateTransformerRequest (
+data class UpdateTransformerRequest(
 
     val id: String? = "",
     val name: String? = "",

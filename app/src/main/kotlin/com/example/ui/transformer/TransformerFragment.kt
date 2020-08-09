@@ -11,11 +11,12 @@ import com.example.R
 import com.example.data.TransformerType
 import com.example.databinding.FragmentTransformerBinding
 import com.example.ui.base.BaseFragment
+import com.example.util.Constants.TEAM_AUTOBOT
+import com.example.util.Constants.TEAM_DECEPTICON
 import com.example.util.autoCleared
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.transformer_seek_bar.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 enum class TransformerViewType {
     CREATE,
@@ -26,7 +27,6 @@ class TransformerFragment : BaseFragment() {
 
     private var viewBinding by autoCleared<FragmentTransformerBinding>()
     private val transformerViewModel: TransformerViewModel by viewModel()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,11 +71,11 @@ class TransformerFragment : BaseFragment() {
 
         when (safeArgs.transformerType) {
             TransformerType.AUTOBOT.name -> {
-                transformerViewModel.transformerTeam = "A"
+                transformerViewModel.transformerTeam = TEAM_AUTOBOT
                 transformerViewModel.viewTitle.value = getString(R.string.new_autobot)
             }
             TransformerType.DECEPTICON.name -> {
-                transformerViewModel.transformerTeam = "D"
+                transformerViewModel.transformerTeam = TEAM_DECEPTICON
                 transformerViewModel.viewTitle.value = getString(R.string.new_decepticon)
             }
         }
@@ -104,26 +104,26 @@ class TransformerFragment : BaseFragment() {
 
             // SeekBar change listener
             transformerSeekBar.seekBar?.setOnSeekBarChangeListener(object :
-                SeekBar.OnSeekBarChangeListener {
+                    SeekBar.OnSeekBarChangeListener {
 
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-                    // Update mutableLiveData when seekbar progress is updated
-                    mutableLiveData.value = progress
-                    transformerSeekBar.seekBarLabel?.text =
-                        "${transformerSeekBar.seekBarLabelText}: $progress"
-                    if (progress < 1) {
-                        // SeekBar Attribute min is only used in API level 26 and higher
-                        // Min value set to 1 for API less than 26
-                        seekBar.progress = 1
+                    override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
+                        // Update mutableLiveData when seekbar progress is updated
+                        mutableLiveData.value = progress
+                        transformerSeekBar.seekBarLabel?.text =
+                            "${transformerSeekBar.seekBarLabelText}: $progress"
+                        if (progress < 1) {
+                            // SeekBar Attribute min is only used in API level 26 and higher
+                            // Min value set to 1 for API less than 26
+                            seekBar.progress = 1
+                        }
                     }
-                }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
 
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                }
-            })
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    }
+                })
 
             // Update seekbar progress when mutableLiveData is updated
             mutableLiveData.observe(

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -12,11 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.R
 import com.example.data.TransformerType
-import com.example.data.response.Transformer
 import com.example.databinding.FragmentHomeBinding
 import com.example.ui.base.BaseFragment
 import com.example.ui.transformer.TransformerViewType
 import com.example.util.Constants
+import com.example.util.Constants.TEAM_AUTOBOT
+import com.example.util.Constants.TEAM_DECEPTICON
 import com.example.util.autoCleared
 import io.reactivex.rxkotlin.addTo
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,7 +41,6 @@ class HomeFragment : BaseFragment() {
         viewBinding = FragmentHomeBinding.inflate(inflater, container, false)
         viewBinding.viewModel = homeViewModel
         viewBinding.lifecycleOwner = this
-
 
         autoBotViewAdapter = TransformersAdapter(listViewClickListener)
         decepticonViewAdapter = TransformersAdapter(listViewClickListener)
@@ -70,8 +69,14 @@ class HomeFragment : BaseFragment() {
             viewLifecycleOwner,
             Observer { transformersResponse ->
                 transformersResponse?.let { transformers ->
-                    autoBotViewAdapter.addHeaderAndSubmitList(transformers.filter { it.team == "A" })
-                    decepticonViewAdapter.addHeaderAndSubmitList(transformers.filter { it.team == "D" })
+                    val autobots = transformers
+                        .filter { it.team == TEAM_AUTOBOT }
+                        .sortedBy { it.overallRating() }
+                    val decepticons = transformers
+                        .filter { it.team == TEAM_DECEPTICON }
+                        .sortedBy { it.overallRating() }
+                    autoBotViewAdapter.addHeaderAndSubmitList(autobots)
+                    decepticonViewAdapter.addHeaderAndSubmitList(decepticons)
                 }
             }
         )

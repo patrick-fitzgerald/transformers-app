@@ -67,7 +67,6 @@ class TransformersRepository constructor(
         }
     }
 
-
     suspend fun putTransformer(updateTransformerRequest: UpdateTransformerRequest): Resource<Transformer> {
         return try {
             // API request

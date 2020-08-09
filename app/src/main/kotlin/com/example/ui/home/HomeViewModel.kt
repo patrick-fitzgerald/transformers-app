@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.api.Resource
 import com.example.api.Status
-import com.example.data.response.Transformer
 import com.example.data.response.TransformerListResponse
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel

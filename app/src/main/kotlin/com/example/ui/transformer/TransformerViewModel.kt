@@ -5,14 +5,14 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.R
-import com.example.api.Resource
 import com.example.api.Status
 import com.example.data.request.CreateTransformerRequest
 import com.example.data.request.UpdateTransformerRequest
 import com.example.data.response.Transformer
-import com.example.data.response.TransformerListResponse
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel
+import com.example.util.Constants.TEAM_AUTOBOT
+import com.example.util.Constants.TEAM_DECEPTICON
 import com.example.util.extensions.default
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
@@ -59,7 +59,6 @@ class TransformerViewModel(
             TransformerViewType.VIEW -> {
                 updateTransformerRequest()
             }
-
         }
     }
 
@@ -102,7 +101,6 @@ class TransformerViewModel(
         }
     }
 
-
     private fun deleteTransformerRequest(transformerId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
@@ -121,7 +119,6 @@ class TransformerViewModel(
             }
         }
     }
-
 
     private fun updateTransformerRequest() {
         val updateTransformerRequest = UpdateTransformerRequest(
@@ -164,8 +161,8 @@ class TransformerViewModel(
         transformer?.let {
             // Update view title
             when (it.team) {
-                "A" -> viewTitle.value = context.getString(R.string.update_autobot)
-                "D" -> viewTitle.value = context.getString(R.string.update_decepticon)
+                TEAM_AUTOBOT -> viewTitle.value = context.getString(R.string.update_autobot)
+                TEAM_DECEPTICON -> viewTitle.value = context.getString(R.string.update_decepticon)
                 else -> Unit
             }
 
@@ -224,12 +221,12 @@ class TransformerViewModel(
     private fun resetValues() {
         transformerName.value = ""
         transformerStrength.value = 1
-        transformerIntelligence.value =  1
-        transformerSpeed.value =  1
-        transformerEndurance.value =  1
-        transformerRank.value =  1
-        transformerCourage.value =  1
-        transformerFirepower.value =  1
-        transformerSkill.value =  1
+        transformerIntelligence.value = 1
+        transformerSpeed.value = 1
+        transformerEndurance.value = 1
+        transformerRank.value = 1
+        transformerCourage.value = 1
+        transformerFirepower.value = 1
+        transformerSkill.value = 1
     }
 }

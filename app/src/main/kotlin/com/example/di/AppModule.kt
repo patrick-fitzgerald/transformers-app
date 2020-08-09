@@ -71,7 +71,6 @@ val dbModule = module {
     }
 }
 
-
 val glideModule = module {
 
     fun provideRequestManager(

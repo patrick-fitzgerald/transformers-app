@@ -1,6 +1,5 @@
 package com.example
 
-import android.app.Application
 import androidx.multidex.MultiDexApplication
 import com.example.di.appModules
 import com.example.util.TimberDebugTree

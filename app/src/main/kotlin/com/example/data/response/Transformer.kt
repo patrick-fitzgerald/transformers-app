@@ -11,14 +11,14 @@ data class Transformer(
     val id: String = "",
     val name: String = "",
     val team: String = "",
-    val strength: Int,
-    val intelligence: Int,
-    val speed: Int,
-    val endurance: Int,
-    val rank: Int,
-    val courage: Int,
-    val firepower: Int,
-    val skill: Int,
+    val strength: Int = 1,
+    val intelligence: Int = 1,
+    val speed: Int = 1,
+    val endurance: Int = 1,
+    val rank: Int = 1,
+    var courage: Int = 1,
+    val firepower: Int = 1,
+    val skill: Int = 1,
     @ColumnInfo(name = "team_icon")
     @SerializedName("team_icon")
     val teamIcon: String = ""
@@ -34,4 +34,7 @@ data class Transformer(
         return "Overall rating: $rating"
     }
 
+    fun hasSpecialPowers(): Boolean {
+        return name.equals("Optimus Prime") || name.equals("Predaking")
+    }
 }

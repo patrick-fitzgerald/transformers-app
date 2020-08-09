@@ -18,6 +18,4 @@ interface TransformerDao {
 
     @Query("DELETE FROM transformers WHERE id = :id")
     suspend fun deleteTransformer(id: String)
-
-
 }
