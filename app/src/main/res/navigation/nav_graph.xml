@@ -9,13 +9,13 @@
         android:id="@+id/splashFragment"
         android:name="com.example.ui.splash.SplashFragment"
         android:label="splashFragment"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
 
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -23,44 +23,55 @@
         android:id="@+id/homeFragment"
         android:name="com.example.ui.home.HomeFragment"
         android:label="homeFragment"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_homeFragment_to_transformerFragment"
             app:destination="@id/transformerFragment" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_battleFragment"
+            app:destination="@id/battleFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/battleFragment"
+        android:name="com.example.ui.battle.BattleFragment"
+        android:label="battleFragment"
+        tools:layout="@layout/fragment_battle">
+
+        <action
+            android:id="@+id/action_battleFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/transformerFragment"
         android:name="com.example.ui.transformer.TransformerFragment"
         android:label="transformerFragment"
-        tools:layout="@layout/fragment_transformer" >
+        tools:layout="@layout/fragment_transformer">
 
         <argument
             android:name="transformer_type"
-            app:argType="string"
             android:defaultValue=""
-            />
+            app:argType="string" />
 
         <argument
             android:name="transformer_view_type"
-            app:argType="string"
-            android:defaultValue="CREATE"/>
+            android:defaultValue="CREATE"
+            app:argType="string" />
 
         <argument
             android:name="transformer_id"
-            app:argType="string"
             android:defaultValue=""
-            />
+            app:argType="string" />
 
         <action
             android:id="@+id/action_transformerFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            />
+            app:destination="@id/homeFragment" />
 
     </fragment>
-
 
 
 </navigation>

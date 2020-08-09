@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -98,6 +99,7 @@ class HomeFragment : BaseFragment() {
                         navigateToTransformerFragmentCreate(
                             TransformerType.DECEPTICON
                         )
+                    HomeViewModel.ContextEvent.NAVIGATE_TO_BATTLE_FRAGMENT -> navigateToBattleFragment()
                     else -> Unit
                 }
             }
@@ -128,4 +130,13 @@ class HomeFragment : BaseFragment() {
             )
         )
     }
+
+
+    private fun navigateToBattleFragment() {
+        findNavController().navigate(
+            R.id.action_homeFragment_to_battleFragment
+        )
+    }
+
+
 }

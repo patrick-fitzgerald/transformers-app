@@ -10,6 +10,7 @@ import com.example.api.JwtInterceptor
 import com.example.api.TransformersApi
 import com.example.db.TransformersDatabase
 import com.example.repository.TransformersRepository
+import com.example.ui.battle.BattleViewModel
 import com.example.ui.home.HomeViewModel
 import com.example.ui.splash.SplashViewModel
 import com.example.ui.transformer.TransformerViewModel
@@ -26,6 +27,7 @@ val viewModelModule = module {
     single { SplashViewModel(get(), get()) }
     single { HomeViewModel(get()) }
     single { TransformerViewModel(get()) }
+    single { BattleViewModel(get()) }
 }
 
 val networkModule = module {
