@@ -35,6 +35,6 @@ data class Transformer(
     }
 
     fun hasSpecialPowers(): Boolean {
-        return name.equals("Optimus Prime") || name.equals("Predaking")
+        return name == "Optimus Prime" || name == "Predaking"
     }
 }

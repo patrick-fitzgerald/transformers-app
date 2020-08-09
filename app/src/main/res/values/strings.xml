@@ -13,6 +13,15 @@
     <string name="random">Random Values 🔀</string>
     <string name="save">Save 💾</string>
     <string name="delete">Delete ☢️</string>
+    <string name="battle_result">Battle result️</string>
+    <string name="battles">Battles:</string>
+    <string name="autobot_survivors">Autobot survivors:</string>
+    <string name="decepticon_survivors">Decepticon survivors:</string>
+    <string name="all_destroyed">All transformers destroyed ☢️</string>
+    <string name="autobots_won">Autobots won! 🏆</string>
+    <string name="decepticons_won">Decepticons won! 🏆</string>
+    <string name="draw">Draw! 🕊️</string>
+    <string name="none">None</string>
 
 
     <!-- Transformer definitions-->
