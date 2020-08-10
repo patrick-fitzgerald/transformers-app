@@ -15,4 +15,8 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
         Timber.e(error)
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
+
+    fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
 }

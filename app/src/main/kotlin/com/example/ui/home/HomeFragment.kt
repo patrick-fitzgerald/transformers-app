@@ -86,7 +86,7 @@ class HomeFragment : BaseFragment() {
 
     private fun subscribeToContextEvents() {
 
-        // click events
+        // navigation events
         homeViewModel.contextEventBus.subscribe { contextEvent ->
             context?.let {
                 when (contextEvent) {

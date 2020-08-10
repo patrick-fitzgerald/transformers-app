@@ -2,10 +2,10 @@
     <string name="app_name">Transformers</string>
     <string name="home_title">Home</string>
     <string name="transformers_list">Transformers</string>
-    <string name="new_autobot_btn">Create New Autobot</string>
-    <string name="new_decepticon_btn">Create New Decepticon</string>
-    <string name="new_autobot">Create New Autobot 🤖</string>
-    <string name="new_decepticon">Create New Decepticon 🤖</string>
+    <string name="new_autobot_btn">New Autobot</string>
+    <string name="new_decepticon_btn">New Decepticon</string>
+    <string name="new_autobot">New Autobot 🤖</string>
+    <string name="new_decepticon">New Decepticon 🤖</string>
     <string name="update_autobot">Update Autobot 🤖</string>
     <string name="update_decepticon">Update Decepticon 🤖</string>
     <string name="battle">⚔️ Battle ⚔️</string>
@@ -22,6 +22,10 @@
     <string name="decepticons_won">Decepticons won! 🏆</string>
     <string name="draw">Draw! 🕊️</string>
     <string name="none">None</string>
+    <string name="battle_error_no_autobot_and_decepticon">Create an Autobot and Decepticon to battle</string>
+    <string name="battle_error_no_autobot">Create an Autobot to battle</string>
+    <string name="battle_error_no_decepticon">Create a Decepticon to battle</string>
+    <string name="no_name_error">Please enter a Transformer name</string>
 
 
     <!-- Transformer definitions-->

@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/small_padding"
+        android:background="@color/white"
         android:onClick="@{() -> clickListener.onClick(transformer)}">
 
 
@@ -28,17 +29,17 @@
             android:layout_height="@dimen/list_item_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/transformer_name"
             style="@style/textMediumBold"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/tiny_padding"
             android:layout_marginTop="@dimen/small_padding"
             android:ellipsize="end"
+            android:gravity="start"
             android:lines="1"
             android:text="@{transformer.name}"
             app:layout_constraintStart_toEndOf="@id/transformer_image"
@@ -48,12 +49,14 @@
         <TextView
             android:id="@+id/transformer_rating"
             style="@style/textSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/tiny_padding"
             android:ellipsize="end"
+            android:gravity="start"
             android:lines="1"
             android:text="@{transformer.overallRating()}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/transformer_image"
             app:layout_constraintTop_toBottomOf="@id/transformer_name"
             tools:text="Rating: 8" />

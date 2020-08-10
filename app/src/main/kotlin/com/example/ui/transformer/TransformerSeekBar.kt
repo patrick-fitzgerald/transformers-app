@@ -11,6 +11,9 @@ import androidx.constraintlayout.widget.ConstraintSet
 import com.example.R
 import kotlinx.android.synthetic.main.transformer_seek_bar.view.*
 
+/**
+ * Transformer SeekBar view
+ */
 class TransformerSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 

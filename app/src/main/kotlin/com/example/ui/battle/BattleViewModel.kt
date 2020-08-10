@@ -34,8 +34,11 @@ class BattleViewModel(
 
             val totalBattleResult = BattleHelper.startBattle(transformers)
 
+            // battle winning team
             battleResult.value = totalBattleResult.winningTeam(context)
-            battlesText.value = totalBattleResult.battleResults.map {
+
+            // battle summary
+            battlesText.value = totalBattleResult.battleResults.joinToString("") {
                 val battle = "(A) ${it.autobot.name} vs (D) ${it.decepticon.name}\n"
                 val result = when (it.battleResult) {
                     BattleResult.AUTOBOT_WINS -> "🏆 ${it.autobot.name} won\n\n"
@@ -44,8 +47,9 @@ class BattleViewModel(
                     BattleResult.ALL_DESTROYED -> "All Destroyed\n\n"
                 }
                 battle + result
-            }.joinToString("")
+            }
 
+            // autobot survivors
             if (totalBattleResult.autobotSurvivors.isEmpty()) {
                 autoBotSurvivors.value = context.getString(R.string.none)
             } else {
@@ -53,6 +57,7 @@ class BattleViewModel(
                     totalBattleResult.autobotSurvivors.joinToString(",") { it.name }
             }
 
+            // decepticon survivors
             if (totalBattleResult.decepticonSurvivors.isEmpty()) {
                 decepticonSurvivors.value = context.getString(R.string.none)
             } else {

@@ -1,7 +1,5 @@
 package com.example.ui.transformer
 
-import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.R
@@ -47,7 +45,7 @@ class TransformerViewModel(
     fun onSaveCtaClick() {
         // Name validation
         if (transformerName.value.isNullOrEmpty()) {
-            Toast.makeText(context, "Please enter a Transformer name", LENGTH_LONG).show()
+            showToast(context.getString(R.string.no_name_error))
             return
         }
 
@@ -81,8 +79,8 @@ class TransformerViewModel(
         return transformerViewType == TransformerViewType.CREATE
     }
 
+    // GET Transformer
     fun getTransformerRequest(transformerId: String) {
-        Timber.d("lookupTransformer with id: $transformerId")
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             val response = transformersRepository.getTransformer(transformerId)
@@ -101,6 +99,7 @@ class TransformerViewModel(
         }
     }
 
+    // DELETE Transformer
     private fun deleteTransformerRequest(transformerId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
@@ -120,6 +119,7 @@ class TransformerViewModel(
         }
     }
 
+    // PUT Transformer
     private fun updateTransformerRequest() {
         val updateTransformerRequest = UpdateTransformerRequest(
             name = transformerName.value,
@@ -154,32 +154,7 @@ class TransformerViewModel(
         }
     }
 
-    private fun parseTransformer(transformer: Transformer?) {
-
-        // Update MutableLiveData values
-
-        transformer?.let {
-            // Update view title
-            when (it.team) {
-                TEAM_AUTOBOT -> viewTitle.value = context.getString(R.string.update_autobot)
-                TEAM_DECEPTICON -> viewTitle.value = context.getString(R.string.update_decepticon)
-                else -> Unit
-            }
-
-            transformerId = it.id
-            transformerTeam = it.team
-            transformerName.value = it.name
-            transformerStrength.value = it.strength
-            transformerIntelligence.value = it.intelligence
-            transformerSpeed.value = it.speed
-            transformerEndurance.value = it.endurance
-            transformerRank.value = it.rank
-            transformerCourage.value = it.courage
-            transformerFirepower.value = it.firepower
-            transformerSkill.value = it.skill
-        }
-    }
-
+    // POST Transformer
     private fun createTransformerRequest() {
 
         val createTransformerRequest = CreateTransformerRequest(
@@ -213,11 +188,36 @@ class TransformerViewModel(
         }
     }
 
+    // Parse transformer & update MutableLiveData values
+    private fun parseTransformer(transformer: Transformer?) {
+        transformer?.let {
+            // Update view title
+            when (it.team) {
+                TEAM_AUTOBOT -> viewTitle.value = context.getString(R.string.update_autobot)
+                TEAM_DECEPTICON -> viewTitle.value = context.getString(R.string.update_decepticon)
+                else -> Unit
+            }
+
+            transformerId = it.id
+            transformerTeam = it.team
+            transformerName.value = it.name
+            transformerStrength.value = it.strength
+            transformerIntelligence.value = it.intelligence
+            transformerSpeed.value = it.speed
+            transformerEndurance.value = it.endurance
+            transformerRank.value = it.rank
+            transformerCourage.value = it.courage
+            transformerFirepower.value = it.firepower
+            transformerSkill.value = it.skill
+        }
+    }
+
     fun closeView() {
         resetValues()
         contextEventBus.onNext(ContextEvent.NAVIGATE_TO_HOME_FRAGMENT)
     }
 
+    // Reset view values
     private fun resetValues() {
         transformerName.value = ""
         transformerStrength.value = 1

@@ -48,6 +48,7 @@ class TransformerFragment : BaseFragment() {
         initSeekBarChangeListeners()
     }
 
+    // parse bundle arguments
     private fun parseSafeArgs() {
         arguments?.let {
             val safeArgs = TransformerFragmentArgs.fromBundle(it)

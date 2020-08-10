@@ -1,8 +1,8 @@
 package com.example.ui.home
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.R
 import com.example.api.Resource
 import com.example.api.Status
 import com.example.data.response.TransformerListResponse
@@ -44,16 +44,17 @@ class HomeViewModel(
         val decepticons = transformers.value?.filter { it.team == Constants.TEAM_DECEPTICON }
 
         if (autobots?.size == 0 && decepticons?.size == 0) {
-            Toast.makeText(
-                context,
-                "Create an Autobot and Decepticon to battle",
-                Toast.LENGTH_LONG
-            ).show()
+            showToast(
+                context.getString(R.string.battle_error_no_autobot_and_decepticon)
+            )
         } else if (autobots?.size == 0) {
-            Toast.makeText(context, "Create an Autobot to battle", Toast.LENGTH_LONG).show()
+            showToast(
+                context.getString(R.string.battle_error_no_autobot)
+            )
         } else if (decepticons?.size == 0) {
-            Toast.makeText(context, "Create an Decepticon to battle", Toast.LENGTH_LONG)
-                .show()
+            showToast(
+                context.getString(R.string.battle_error_no_decepticon)
+            )
         } else {
             contextEventBus.onNext(ContextEvent.NAVIGATE_TO_BATTLE_FRAGMENT)
         }

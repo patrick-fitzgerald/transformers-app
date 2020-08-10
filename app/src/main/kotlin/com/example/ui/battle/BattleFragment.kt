@@ -38,7 +38,6 @@ class BattleFragment : BaseFragment() {
                 battleViewModel.getBattleResult()
             }
         )
-
         subscribeToContextEvents()
     }
 
