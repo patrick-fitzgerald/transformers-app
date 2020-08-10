@@ -1,12 +1,7 @@
 package com.example.di
 
-import android.app.Application
 import androidx.room.Room
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
-import com.bumptech.glide.request.RequestOptions
 import com.example.BuildConfig
-import com.example.R
 import com.example.api.JwtInterceptor
 import com.example.api.TransformersApi
 import com.example.db.TransformersDatabase
@@ -19,7 +14,6 @@ import com.example.util.PreferenceHelper
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

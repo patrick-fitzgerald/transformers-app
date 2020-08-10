@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.R
 import com.example.data.response.Transformer
 import com.example.databinding.ListItemTransformerBinding
+import com.example.util.Constants.TEAM_AUTOBOT
+import com.example.util.Constants.TEAM_DECEPTICON
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,6 +50,12 @@ class TransformersAdapter(private val clickListener: TransformerListener) :
 
         fun bind(transformer: Transformer, clickListener: TransformerListener) {
             binding.transformer = transformer
+            val resId  = when(transformer.team){
+                TEAM_AUTOBOT -> R.drawable.ic_transformers_autobot
+                TEAM_DECEPTICON -> R.drawable.ic_transformers_decepticon
+                else -> R.color.transparent
+            }
+            binding.transformerImage.setImageResource(resId)
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }

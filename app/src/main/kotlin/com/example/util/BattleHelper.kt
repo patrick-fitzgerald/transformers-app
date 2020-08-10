@@ -16,12 +16,12 @@ class BattleHelper {
             // autobots sorted by rank
             val autobots = transformers
                 .filter { it.team == Constants.TEAM_AUTOBOT }
-                .sortedBy { it.rank }
+                .sortedByDescending { it.rank }
 
             // decepticons sorted by rank
             val decepticons = transformers
                 .filter { it.team == Constants.TEAM_DECEPTICON }
-                .sortedBy { it.rank }
+                .sortedByDescending { it.rank }
 
             val autobotsIterator = autobots.iterator()
             val decepticonsIterator = decepticons.iterator()

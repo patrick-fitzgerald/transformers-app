@@ -72,10 +72,10 @@ class HomeFragment : BaseFragment() {
                 transformersResponse?.let { transformers ->
                     val autobots = transformers
                         .filter { it.team == TEAM_AUTOBOT }
-                        .sortedBy { it.overallRating() }
+                        .sortedByDescending { it.overallRating() }
                     val decepticons = transformers
                         .filter { it.team == TEAM_DECEPTICON }
-                        .sortedBy { it.overallRating() }
+                        .sortedByDescending { it.overallRating() }
                     autoBotViewAdapter.addHeaderAndSubmitList(autobots)
                     decepticonViewAdapter.addHeaderAndSubmitList(decepticons)
                 }

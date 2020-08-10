@@ -26,10 +26,10 @@
             android:id="@+id/transformer_image"
             android:layout_width="@dimen/list_item_image"
             android:layout_height="@dimen/list_item_image"
-            app:imageUrl="@{transformer.teamIcon}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/transformer_name"
