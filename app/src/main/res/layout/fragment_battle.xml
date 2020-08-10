@@ -4,133 +4,140 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/medium_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transformers_banner">
+        android:background="@color/white"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/textLarge"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_padding"
-            android:layout_marginEnd="@dimen/small_padding"
-            android:gravity="center_horizontal"
-            android:text="@string/battle"
-            app:layout_constraintEnd_toStartOf="@id/close_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/close_btn"
-            android:layout_width="@dimen/close_button"
-            android:layout_height="@dimen/close_button"
-            android:background="@color/transparent"
-            android:onClick="@{() -> viewModel.closeView()}"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_close"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/battle_result_title"
-            style="@style/textLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_padding"
-            android:text="@string/battle_result"
-
+            android:layout_height="match_parent"
+            android:padding="@dimen/medium_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/transformers_banner">
 
-        <TextView
-            android:id="@+id/battle_result_text"
-            style="@style/textMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:text="@{viewModel.battleResult}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/battle_result_title" />
+            <TextView
+                android:id="@+id/title"
+                style="@style/textLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_padding"
+                android:layout_marginEnd="@dimen/small_padding"
+                android:gravity="center_horizontal"
+                android:text="@string/battle"
+                app:layout_constraintEnd_toStartOf="@id/close_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/battles_title"
-            style="@style/textMediumBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:text="@string/battles"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/battle_result_text" />
-
-        <TextView
-            android:id="@+id/battles_text"
-            style="@style/textMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:text="@{viewModel.battlesText}"
-            android:gravity="center_horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/battles_title" />
+            <ImageButton
+                android:id="@+id/close_btn"
+                android:layout_width="@dimen/close_button"
+                android:layout_height="@dimen/close_button"
+                android:background="@color/transparent"
+                android:onClick="@{() -> viewModel.closeView()}"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/autobot_survivors_title"
-            style="@style/textMediumBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:text="@string/autobot_survivors"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/battles_text" />
+            <TextView
+                android:id="@+id/battle_result_title"
+                style="@style/textLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_padding"
+                android:text="@string/battle_result"
 
-        <TextView
-            android:id="@+id/autobot_survivors_text"
-            style="@style/textMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:text="@{viewModel.autoBotSurvivors}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/autobot_survivors_title" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title" />
 
-        <TextView
-            android:id="@+id/decpticon_survivors_title"
-            style="@style/textMediumBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:text="@string/decepticon_survivors"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/autobot_survivors_text" />
+            <TextView
+                android:id="@+id/battle_result_text"
+                style="@style/textMediumBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_padding"
+                android:gravity="center_horizontal"
+                android:text="@{viewModel.battleResult}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battle_result_title" />
 
-        <TextView
-            android:id="@+id/decpticon_survivors_text"
-            style="@style/textMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:text="@{viewModel.decepticonSurvivors}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/decpticon_survivors_title" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/battles_title"
+                style="@style/textMediumBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_padding"
+                android:text="@string/battles"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battle_result_text" />
+
+            <TextView
+                android:id="@+id/battles_text"
+                style="@style/textMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_padding"
+                android:gravity="center_horizontal"
+                android:text="@{viewModel.battlesText}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battles_title" />
+
+
+            <TextView
+                android:id="@+id/autobot_survivors_title"
+                style="@style/textMediumBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_padding"
+                android:text="@string/autobot_survivors"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battles_text" />
+
+            <TextView
+                android:id="@+id/autobot_survivors_text"
+                style="@style/textMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_padding"
+                android:text="@{viewModel.autoBotSurvivors}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/autobot_survivors_title" />
+
+            <TextView
+                android:id="@+id/decpticon_survivors_title"
+                style="@style/textMediumBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_padding"
+                android:text="@string/decepticon_survivors"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/autobot_survivors_text" />
+
+            <TextView
+                android:id="@+id/decpticon_survivors_text"
+                style="@style/textMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_padding"
+                android:text="@{viewModel.decepticonSurvivors}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/decpticon_survivors_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <data>
 

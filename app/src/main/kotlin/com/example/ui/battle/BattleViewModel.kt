@@ -39,10 +39,10 @@ class BattleViewModel(
 
             // battle summary
             battlesText.value = totalBattleResult.battleResults.joinToString("") {
-                val battle = "(A) ${it.autobot.name} vs (D) ${it.decepticon.name}\n"
+                val battle = "(A) ${it.autobot.name} vs (D) ${it.decepticon.name}\n\n"
                 val result = when (it.battleResult) {
-                    BattleResult.AUTOBOT_WINS -> "🏆 ${it.autobot.name} won\n\n"
-                    BattleResult.DECEPTICON_WINS -> "🏆 ${it.decepticon.name} won \n\n"
+                    BattleResult.AUTOBOT_WINS -> "🏆 (A) ${it.autobot.name} won\n\n\n"
+                    BattleResult.DECEPTICON_WINS -> "🏆 (D) ${it.decepticon.name} won \n\n\n"
                     BattleResult.NO_RESULT -> "Draw\n\n"
                     BattleResult.ALL_DESTROYED -> "All Destroyed\n\n"
                 }
