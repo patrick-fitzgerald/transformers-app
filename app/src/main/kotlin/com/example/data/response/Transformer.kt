@@ -2,7 +2,6 @@ package com.example.data.response
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.example.util.Constants.TEAM_AUTOBOT
 import com.google.gson.annotations.SerializedName
 
 @Entity(primaryKeys = ["id"], tableName = "transformers")
@@ -38,5 +37,4 @@ data class Transformer(
     fun hasSpecialPowers(): Boolean {
         return name == "Optimus Prime" || name == "Predaking"
     }
-
 }

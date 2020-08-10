@@ -5,13 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.R
 import com.example.databinding.FragmentBattleBinding
 import com.example.ui.base.BaseFragment
-import com.example.ui.battle.BattleViewModel
-import com.example.util.Constants
 import com.example.util.autoCleared
 import io.reactivex.rxkotlin.addTo
 import org.koin.androidx.viewmodel.ext.android.viewModel

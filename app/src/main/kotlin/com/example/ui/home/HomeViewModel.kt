@@ -57,7 +57,6 @@ class HomeViewModel(
         } else {
             contextEventBus.onNext(ContextEvent.NAVIGATE_TO_BATTLE_FRAGMENT)
         }
-
     }
 
     fun getTransformersRequest() {

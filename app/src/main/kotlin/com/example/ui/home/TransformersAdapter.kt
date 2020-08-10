@@ -50,7 +50,7 @@ class TransformersAdapter(private val clickListener: TransformerListener) :
 
         fun bind(transformer: Transformer, clickListener: TransformerListener) {
             binding.transformer = transformer
-            val resId  = when(transformer.team){
+            val resId = when (transformer.team) {
                 TEAM_AUTOBOT -> R.drawable.ic_transformers_autobot
                 TEAM_DECEPTICON -> R.drawable.ic_transformers_decepticon
                 else -> R.color.transparent

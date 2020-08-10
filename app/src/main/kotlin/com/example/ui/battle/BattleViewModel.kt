@@ -1,19 +1,12 @@
 package com.example.ui.battle
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.example.R
-import com.example.api.Status
 import com.example.data.BattleResult
 import com.example.repository.TransformersRepository
 import com.example.ui.base.BaseViewModel
-import com.example.ui.transformer.TransformerViewModel
 import com.example.util.BattleHelper
-import com.example.util.PreferenceHelper
 import io.reactivex.subjects.PublishSubject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class BattleViewModel(
     private val transformersRepository: TransformersRepository
@@ -67,7 +60,5 @@ class BattleViewModel(
                     totalBattleResult.decepticonSurvivors.joinToString(",") { it.name }
             }
         }
-
     }
-
 }
